@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Form</title>
+	<style>
+		header
+		{
+			padding: 10px;
+		}
+		h2{
+			
+			color: rgb(1, 7, 1);
+		}
+		ul {
+			background-color: black;
+		width:;
+		}
+		a{
+			color: white;
+		}
+        body{
+			background-image: url("5.jfif");
+  			background-repeat:repeat;
+  			background-size:contain;
+		
+		 }
+		footer{
+			color: black;
+		}
+		 body 
+
+         {
+			background-color: aquamarin;
+			backface-visibility: inherit;
+	 		background-size: cover;
+         }
+	     	form {
+			max-width: 500px;
+			margin: 0 auto;
+			padding: 20px;
+			background:transparent;
+			border-radius: 50px;
+		  }
+		  input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			margin: 5px 0;
+			border: none;
+			border-radius: 5px;
+			background: rgb(238, 234, 228);
+		}
+		input[type="submit"] {
+			width: 100%;
+			background: #4CAF50;
+			color: #fff;
+			padding: 10px;
+			margin: 10px 0;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		button{
+			background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        margin: 4px 2px;
+        cursor: pointer;
+
+		}
+		input[type="submit"]:hover {
+			background: #45a049;
+		}
+	</style>
+	<script type="text/javascript">
+	</script>
+
+	
+</head>
+<header>
+	<ul>
+	
+		<a href="home.html">Back</a>
+	</ul>
+</header>
+<footer>
+	<ul>
+
+	</ul>
+	</footer>
+<body>
+	<form action="jdbc:mysql://127.0.0.1:3306/onlinefashionshopping","root","Aspire@12345">
+		<b>
+		<h2>Registration Form</h2>
+		<label for="first_name">First Name</label>
+		<input type="text" id="first_name" name="first_name" required>
+
+		<label for="last_name">Last Name</label>
+		<input type="text" id="last_name" name="last_name" required>
+
+		<label for="phone_number">Phone Number</label>
+		<input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" required>
+
+		<label for="email">Email</label>
+		<input type="email" id="email" name="email" required>
+
+		<label for="username">Username</label>
+		<input type="text" id="username" name="username" required>
+
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
+		<center>
+	
+	   <button type="button" onclick="window.location.href='login.html'">Register</button>
+	  
+	</center>
+	</b>
+	</form>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact Us</title>
+	<style>
+
+		body{
+			background-image:url("jackets and shoes.jpg") ;
+			background-repeat: repeat;
+			background-size: cover;
+		}
+		ul {
+			background-color: black;
+		}
+		header a {
+			color: aliceblue;
+		}
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #11b89c;
+			padding: 20px;
+		}
+
+		form {
+			background-color:white;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		}
+
+		input[type="text"],
+		input[type="email"],
+		textarea {
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color:transparent;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			width: auto;
+			margin-top: 10px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #45a049;
+		}
+		h1 {
+			color: aliceblue;
+		}
+	</style>
+</head>
+<header>
+	<ul>
+		<li><a href="home.html">Back</a></li>
+		
+	</ul>
+</header>
+<body>
+	<h1>Contact Us</h1>
+	<form>
+<a>onlinefashionshopping24x7@gmail.com</a>
+	</form>
+</body>
+</html>
