@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 
-app = Flask(__name__,template_folder='./')
+app = Flask(__name__,template_folder='./templates')
 
 # Route for the homepage
 @app.route("/")
