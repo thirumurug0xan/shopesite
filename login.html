@@ -1,92 +1,132 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
+
 <head>
-	<title>Login Page</title>
-	<link rel="stylesheet" href="style.css">
-	<style>
-	header{
-		color: rgb(250, 238, 238);
-        background:rgb(0, 0, 0);
-	}
-		
-		body{
-			background-image:url("login.jpeg") ;
-  			background-repeat: no-repeat;
-			background-size:cover;
-		}
-			
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        header {
+            color: rgb(250, 238, 238);
+            background: rgb(0, 0, 0);
+        }
 
-		
-		}
+        body {
+            background-image: url("{{url_for('static',filename='login.jpeg')}}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-		h1 {
-			color: aliceblue;
-			text-align: center;
-			margin-bottom: 20px;
-		}
+        h1 {
+            color: aliceblue;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-		form {
-			background-color:transparent;
-			padding: 20px;
-			border-radius: 5px;
-			box-shadow: 0 0 10px rgb(255, 255, 255);
-			max-width: 400px;
-		s	margin: 0 auto;
-		}
+        form {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgb(255, 255, 255);
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-		input[type="text"], input[type="password"] {
-			display: block;
-			margin-bottom: 20px;
-			padding: 10px;
-			border-radius: 5px;
-			border: 1px solid white;
-			width: 100%;
-			box-sizing: border-box;
-		}
-label{
-	color: white;
-}
-		input[type="submit"] {
-			background-color: #4CAF50;
-			color: rgb(255, 252, 247);
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-		}
+        input[type="text"], input[type="password"] {
+            display: block;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid white;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-		input[type="submit"]:hover {
-			background-color: #3e8e41;
-		}
-		button
-		{
-			color: #4CAF50;
-		}
+        label {
+            color: white;
+        }
 
-		button{
-			background: #45a049;
-		}
-	</style>
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: rgb(255, 252, 247);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        button {
+            color: #4CAF50;
+        }
+
+        button {
+            background: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<header>
-	<ul>
-	
-		<a href="home.html">Back</a>
-	</ul>
-</header>
-<body>
-	<h1>Login</h1><br><br><br>
-	<center>
-	<form action="jdbc:mysql://127.0.0.1:3306/onlinefashionshopping","root","Aspire@12345">
-		<label for="username"><b>UserName:</b></label>
-		<input type="text" id="UserName" name="UserName" placeholder="Enter your username">
 
-		<label for="password"><b>Password:</b></label>
-		<input type="password" id="Password" name="Password" placeholder="Enter your password">
-		<center><button><a href="home 2.html">Login</button></a></center>
-	
-	
-	</form>
+<header>
+    <ul>
+        <li><a href="home.html">Back</a></li>
+    </ul>
+</header>
+
+<body>
+    <h1>Login</h1><br><br><br>
+    <center>
+        <!-- Form action points to '/login' -->
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <label for="username"><b>UserName:</b></label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password"><b>Password:</b></label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <!-- Login button to submit the form -->
+            <input type="submit" value="Login">
+        </form>
+
+        <div class="error-message" id="errorMessage" style="display: none;"></div>
+    </center>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Get the form data
+            var formData = new FormData(document.getElementById('loginForm'));
+            
+            // Send the data to the Flask backend using fetch API (AJAX)
+            fetch('/login.html', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.location.href = '/welcome'; // Redirect on success (You can change to whatever page)
+                } else {
+                    // Show error message if login fails
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('errorMessage').textContent = data.message;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
+
 </html>

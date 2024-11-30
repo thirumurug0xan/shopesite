@@ -5,7 +5,7 @@
     <style>
       /* CSS styles */
         
-      }
+      
       body {
         font-family: Arial, sans-serif;
         margin: 10;
@@ -97,40 +97,42 @@
     </nav>
     <section>
       <div class="product">
-        <img src="shoes.jpeg" alt="shoes">
+        <img src="{{url_for('static',filename='shoes.jpeg')}}" alt="shoes">
         <h3>shoes</h3>
-        <a href="shoes.jfif" class="button">BUY</a>
+        <a href="{{url_for('static',filename='shoes.jpeg')}}" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img src="lip_gloss.jpeg" alt="lip gloss">
+        <img src="{{url_for('static',filename='lip_gloss.jpeg')}}" alt="lip gloss">
         <h3>lip gloss</h3>
         
         <a href="" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img src="maskara.jpeg" alt="mascara">
+        <img src="{{url_for('static',filename='maskara.jpeg')}}" alt="mascara">
         <h3>Mascara</h3>
         <a href="" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img src="Oddity_-_DISSENT_Matte_Lipstick.jpeg" alt="DISSENT Matte Lipstick">
+        <img
+        src="{{url_for('static',filename='Oddity_-_DISSENT_Matte_Lipstick.jpeg')}}"
+        alt="DISSENT Matte Lipstick">
         <h3>DISSENT Matte Lipstick</h3>
         <a href="" class="button">BUY</a>
       </div>
       
 
       <div class="product">
-        <img src="Beautiful_chain_watch.jpeg" alt="watchs">
+        <img src="{{url_for('static',filename='Beautiful_chain_watch.jpeg')}}" alt="watchs">
         <h3>Beautiful chain watch</h3>
         <a href="" class="button">BUY</a>
       </div>
 
       
       <div class="product">
-        <img src="perfume.jpeg" alt="perfume">
+        <img src="{{url_for('static',filename='perfume.jpeg')}}" alt="perfume">
         <h3>Black opium perfume
             <rs:799></rs:799>
         </h3>
@@ -139,5 +141,5 @@
 
 </section>
 <footer>
-  <p>&copy; 2023 online fashion shopping</p>
+  <p>&copy; 2024 online fashion shopping</p>
 </footer>
