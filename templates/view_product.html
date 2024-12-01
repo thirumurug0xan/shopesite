@@ -1,145 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Organic Products List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Fashion Shopping - Products</title>
     <style>
-      /* CSS styles */
-        
-      
+      /* General styles */
       body {
         font-family: Arial, sans-serif;
-        margin: 10;
-        padding: 10;
+        margin: 0;
+        padding: 0;
       }
+
       header {
-        
+        background-color: skyblue;
         color: rgb(0, 0, 0);
-        background:skyblue;
         padding: 20px;
         text-align: center;
       }
+
       nav {
         background-color: #333;
-        color: white;
         overflow: hidden;
         text-align: center;
       }
+
       nav a {
         color: white;
-        display: red;
-        float: left;
+        display: inline-block;
         font-size: 16px;
-        padding: 14px 16px;
+        padding: 14px 20px;
         text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
       }
+
       nav a:hover {
         background-color: #ddd;
         color: black;
       }
+
       section {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
-        margin: 20px 0;
+        margin: 20px;
       }
+
       .product {
-        background-color: #f2f2f2;
+        background-color: #f9f9f9;
         border: 1px solid #ccc;
         margin: 10px;
-        padding: 10px;
+        padding: 15px;
         text-align: center;
         width: 200px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
       }
+
+      .product:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
       .product img {
         max-width: 100%;
+        height: auto;
+        border-radius: 5px;
       }
+
       .product h3 {
-        margin-top: 0;
+        margin: 10px 0;
+        font-size: 1.2rem;
+        color: #333;
       }
-      footer {
-      
-        image: url("organic.avif");
-        background-color:rgb(36, 43, 48);
-    
-        color: rgb(0, 0, 0);
-        background:skyblue;
-        padding: 50;
-        foo
-        text-align:center;
-      }
+
       .button {
         background-color: #4CAF50;
         border: none;
         color: white;
-        padding: 10px;
+        padding: 10px 20px;
         text-align: center;
         text-decoration: none;
-        display: inline-block;
-        font-size: 18px;
-        margin: 4px 2px;
+        font-size: 16px;
+        margin-top: 10px;
         cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
       }
+
       .button:hover {
         background-color: #3e8e41;
+      }
+
+      footer {
+        background-color: skyblue;
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        section {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .product {
+          width: 90%;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>online fashion shopping</h1>
+      <h1>Online Fashion Shopping</h1>
     </header>
     <nav>
-      <a href="home2.html">Back
-
-      </a>
-      <a href="#"></a>
-      
+      <a href="home2.html">Back</a>
+      <a href="#">Products</a>
     </nav>
     <section>
       <div class="product">
-        <img src="{{url_for('static',filename='shoes.jpeg')}}" alt="shoes">
-        <h3>shoes</h3>
+        <img src="{{url_for('static',filename='shoes.jpeg')}}" alt="Shoes">
+        <h3>Shoes</h3>
         <a href="{{url_for('static',filename='shoes.jpeg')}}" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img src="{{url_for('static',filename='lip_gloss.jpeg')}}" alt="lip gloss">
-        <h3>lip gloss</h3>
-        
-        <a href="" class="button">BUY</a>
+        <img src="{{url_for('static',filename='lip_gloss.jpeg')}}" alt="Lip Gloss">
+        <h3>Lip Gloss</h3>
+        <a href="#" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img src="{{url_for('static',filename='maskara.jpeg')}}" alt="mascara">
+        <img src="{{url_for('static',filename='maskara.jpeg')}}" alt="Mascara">
         <h3>Mascara</h3>
-        <a href="" class="button">BUY</a>
+        <a href="#" class="button">BUY</a>
       </div>
 
       <div class="product">
-        <img
-        src="{{url_for('static',filename='Oddity_-_DISSENT_Matte_Lipstick.jpeg')}}"
-        alt="DISSENT Matte Lipstick">
+        <img src="{{url_for('static',filename='Oddity_-_DISSENT_Matte_Lipstick.jpeg')}}" alt="DISSENT Matte Lipstick">
         <h3>DISSENT Matte Lipstick</h3>
-        <a href="" class="button">BUY</a>
+        <a href="#" class="button">BUY</a>
       </div>
-      
 
       <div class="product">
-        <img src="{{url_for('static',filename='Beautiful_chain_watch.jpeg')}}" alt="watchs">
-        <h3>Beautiful chain watch</h3>
-        <a href="" class="button">BUY</a>
+        <img src="{{url_for('static',filename='Beautiful_chain_watch.jpeg')}}" alt="Beautiful Chain Watch">
+        <h3>Beautiful Chain Watch</h3>
+        <a href="#" class="button">BUY</a>
       </div>
 
-      
       <div class="product">
-        <img src="{{url_for('static',filename='perfume.jpeg')}}" alt="perfume">
-        <h3>Black opium perfume
-            <rs:799></rs:799>
-        </h3>
-        <a href="" class="button">BUY</a>
+        <img src="{{url_for('static',filename='perfume.jpeg')}}" alt="Black Opium Perfume">
+        <h3>Black Opium Perfume</h3>
+        <a href="#" class="button">BUY</a>
       </div>
-
-</section>
-<footer>
-  <p>&copy; 2024 online fashion shopping</p>
-</footer>
+    </section>
+    <footer>
+      <p>&copy; 2024 Online Fashion Shopping. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

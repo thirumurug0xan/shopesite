@@ -12,15 +12,15 @@ def login():
 
         # Check if the entered credentials match the hardcoded ones
         if username == 'admin' and password == 'admin':
-            return jsonify({'status': 'success', 'redirect_url': url_for('welcome', username=username)})
+            return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
         return render_template('login.html')
 
-@app.route("/welcome/<username>")
-def welcome(username):
-    return f"Welcome, {username}!"
+# @app.route("/welcome/<username>")
+# def welcome(username):
+#     return f"Welcome, {username}!"
 
 @app.route("/about_us.html")
 def about_us():
@@ -52,3 +52,7 @@ def admin(filename):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+# \hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
+# 1500.858 k/s 

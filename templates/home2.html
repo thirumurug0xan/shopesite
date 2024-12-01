@@ -1,136 +1,114 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Online Travel Booking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Fashion Shopping</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{{url_for('static',filename='home2.jpeg')}}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: rgb(255, 255, 255);
+        }
+
+        header {
+            background-color: rgb(172, 224, 16);
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        footer {
+            background-color: rgb(172, 224, 16);
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
+
+            main h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-
-    <style>
-      body
-
-      {
-        background-image:url("home2.jpeg") ;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-      body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-h1{
-  color: rgb(228, 252, 252);
-}
-p. {
-  color: rgb(255, 255, 255);
-}
-header {
-  box-shadow: rgb(170, 155, 155);
-    background-color:  rgb(172, 224, 16);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-}
-
-nav ul {
-    margin: 0;
-    padding: 0;
-list-style: none;
-display: flex;
-justify-content: center;
-}
-
-nav li {
-margin: 0 10px;
-}
-
-nav a {
-color: rgb(0, 0, 0);
-text-decoration: none;
-}
-
-main {
-  color: rgb(242, 36, 36);
-max-width: 1200px;
-margin: 0 auto;
-padding: 20px;
-}
-
-#banner {
-background-image: url("banner.jpg");
-background-size: cover;
-height: 500px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-color: #1b1389;
-}
-
-#banner h1 {
-font-size: 3rem;
-margin-bottom: 20px;
-}
-
-#search {
-background-color: #7a2a2a;
-padding: 20px;
-margin-top: 50px;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-#search h2 {
-font-size: 2rem;
-margin-bottom: 20px;
-}
-
-
-
-footer {
-margin-bottom:0;
-background-color: rgb(172, 224, 16);
-text-color: rgb(0, 0, 0);
-padding: 10px;
-text-align: center;
-}
-
-p{
-  color: black;
-}
-
-    </style>
         <nav>
             <ul>
-              <li><a href="home.html">Home</a></li>
-
-              <li><a href="view product.html" >view products</a></li>
-              <li><a href="about us.html" >About us</a></li>
-              <li><a href="contact us.html" >Contact us</a></li>
-            
-              <li><a href="logout.html" >Logout</a></li>
-              
-
-             
-
+                <li><a href="home.html">Home</a></li>
+                <li><a href="view_product.html">View Products</a></li>
+                <li><a href="about_us.html">About Us</a></li>
+                <li><a href="contact_us.html">Contact Us</a></li>
+                <li><a href="logout.html">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <main><center><br><br><br><br><br><br><br><br>
-      <br><br><br><br><br><section id="font-family">
-           <strong> <h1>Welcome to Online fashion shopping</h1><br><br>
-        </section>
-
+    <main>
+        <h1>Welcome to Online Fashion Shopping</h1>
+        <p>Discover the latest trends and shop your favorite styles.</p>
     </main>
-  </center>
-<br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <footer id="border" >
-        <p>&copy; 2023 Online fashion shopping</p>
+
+    <footer>
+        <p>&copy; 2024 Online Fashion Shopping. All rights reserved.</p>
     </footer>
 </body>
 </html>
