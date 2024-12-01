@@ -12,7 +12,7 @@ def login():
 
         # Check if the entered credentials match the hardcoded ones
         if username == 'admin' and password == 'admin':
-            return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#url_for('welcome', username=username)
+            return jsonify({'status': 'success', 'redirect_url': '/home2.html/{ps}'.format(ps=password)})#url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
@@ -34,8 +34,8 @@ def contact_us():
 def home_():
     return render_template("home.html")
 
-@app.route("/home2.html")
-def home2():
+@app.route("/home2.html/<acc>")
+def home2(acc):
     return render_template("home2.html")
 
 @app.route("/register.html")
