@@ -102,12 +102,12 @@
 
     <script>
         function handleLogin(event) {
-            event.preventDefault(); // Prevent form from submitting normally
-
+            event.preventDefault(); // Prevent form submission
+    
             // Get the form data
-            var formData = new FormData(document.getElementById('loginForm'));
-            
-            // Send the data to the Flask backend using fetch API (AJAX)
+            const formData = new FormData(document.getElementById('loginForm'));
+    
+            // Send data to the server
             fetch('/login.html', {
                 method: 'POST',
                 body: formData
@@ -115,18 +115,23 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    window.location.href = '/welcome'; // Redirect on success (You can change to whatever page)
+                    window.location.href = data.redirect_url; // Redirect on success
                 } else {
                     // Show error message if login fails
-                    document.getElementById('errorMessage').style.display = 'block';
-                    document.getElementById('errorMessage').textContent = data.message;
+                    const errorMessage = document.getElementById('errorMessage');
+                    errorMessage.style.display = 'block';
+                    errorMessage.textContent = data.message;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'An unexpected error occurred. Please try again later.';
             });
         }
     </script>
+    
 </body>
 
 </html>
