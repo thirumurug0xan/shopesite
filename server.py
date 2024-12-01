@@ -12,7 +12,7 @@ def login():
 
         # Check if the entered credentials match the hardcoded ones
         if username == 'admin' and password == 'admin':
-            return jsonify({'status': 'success', 'redirect_url': '/home2.html/{ps}'.format(ps=password)})#url_for('welcome', username=username)
+            return jsonify({'status': 'success', 'redirect_url': '/home2.html/{ps}'.format(ps=password)})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
