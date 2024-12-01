@@ -36,8 +36,9 @@ def home_():
 
 @app.route("/home2.html/<acc>")
 def home2(acc):
-    return render_template("home2.html")
-
+    if 'admin' == acc:
+        return render_template("home2.html")
+    return 'you dont have access so go back ha ha....'
 @app.route("/register.html")
 def register():
     return render_template("register.html")
