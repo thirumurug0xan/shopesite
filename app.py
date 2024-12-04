@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, url_for
+from flask import Flask, render_template, request, jsonify, url_for , redirect
 
 app = Flask(__name__, template_folder='./templates')
 
@@ -12,7 +12,7 @@ def login():
 
         # Check if the entered credentials match the hardcoded ones
         if username == 'admin' and password == 'admin':
-            return jsonify({'status': 'success', 'redirect_url': '/home2.html/{ps}'.format(ps=password)})#use cookies for best prctices #url_for('welcome', username=username)
+            return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
@@ -34,11 +34,10 @@ def contact_us():
 def home_():
     return render_template("home.html")
 
-@app.route("/home2.html/<acc>")
-def home2(acc):
-    if 'admin' == acc:
-        return render_template("home2.html")
-    return 'you dont have access so go back ha ha....'
+@app.route("/home2.html")
+def home2():
+    return render_template("home2.html")
+    
 @app.route("/register.html")
 def register():
     return render_template("register.html")
@@ -51,6 +50,9 @@ def view_product():
 def admin(filename):
     return render_template("view_product.html")
 
+@app.route("/logout")
+def logout():
+    return redirect('/home.html')
 if __name__ == "__main__":
     app.run(debug=True)
 

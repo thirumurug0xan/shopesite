@@ -1,90 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>About Us - Fashionista</title>
-	<style>
-		a{
-			color: aliceblue;
-		}
-        body 
-		
-		{
-			background-image: url("shoppin img.jpg");/*need update*/
-  			
-  			background-size: cover;
-		
-		} 
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #f2f2f2;
-			padding: 20px;
-		}
-footer{
-	background-color: black;
-	padding:10px;
-}
-
-		header {
-  background-color: rgb(29, 29, 31);
-  color: rgb(230, 0, 0);
-  padding:0;
-}
-		nav ul {
-			color: aqua;
-  list-style:symbols("");
-  margin: 12;
-  padding: 0;
-}
-
-
-		h1 {
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		img {
-			display: block;
-			margin: 0 auto;
-			max-width: 100%;
-			height: auto;
-			margin-bottom: 20px;
-		}
-
-		p {
-			text-align: justify;
-			line-height: 1.5;
-			margin-bottom: 20px;
-		}
-
-		ul {
-			margin-left: 20px;
-			margin-bottom: 20px;
-		}
-
-		li {
-			margin-bottom: 10px;
-		}
-
-		@media (min-width: 768px) {
-			.container {
-				display: flex;
-				flex-wrap: wrap;
-				align-items: center;
-				justify-content: space-between;
-			}
-
-			.col {
-				flex-basis: calc(50% - 20px);
-			}
-		}
-	</style>
-</head>
-<header>
-	<ul>
-		<a href="home 2.html">Back</a>
-	</ul>
-</header>
-<body>
+{%extends 'menu_bar.html'%}
+{%block content%}
 	<h1>About Us</h1>
 	<div class="container">
 		<div class="col">
@@ -101,9 +16,6 @@ footer{
 				<li>Secure payment options</li>
 				<li>24/7 customer support</li>
 			</ul>
-			<br>
-			<footer></footer>
 		</div>
 	</div>
-</body>
-</html>
+{%endblock%}
