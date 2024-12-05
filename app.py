@@ -46,9 +46,6 @@ def register():
 def view_product():
     return render_template("view_product.html")
 
-@app.route("/admin/<filename>")
-def admin(filename):
-    return render_template("view_product.html")
 
 @app.route("/logout")
 def logout():
