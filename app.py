@@ -1,6 +1,14 @@
 from flask import Flask, render_template, request, jsonify, url_for , redirect
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
 
 app = Flask(__name__, template_folder='./templates')
+
+app.config['MYSQL_HOST'] = '127.0.0.1'
+app.config['MYSQL_USER'] = 'kali'
+app.config['MYSQL_PASSWORD'] = 'kali'
+app.config['MYSQL_DB'] = 'shopesite'
+mysql = MySQL(app)
 
 # Route for the login page
 @app.route("/")
@@ -9,9 +17,17 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('select email,password from users where email=\'{ps}\''.format(ps=username))
+        print('{p}'.format(p='hu'))
+        print(username)
+        account = cursor.fetchone()
+        if not account:
+          account = dict()
+        print(account)
         # Check if the entered credentials match the hardcoded ones
-        if username == 'admin' and password == 'admin':
+        print(account.get('email','no'),account.get('password','no'))
+        if username == account.get('email','no') and password == account.get('password','no'):
             return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
@@ -38,8 +54,30 @@ def home_():
 def home2():
     return render_template("home2.html")
     
-@app.route("/register.html")
+@app.route("/register.html",methods=['GET','POST'])
 def register():
+    if request.method == 'POST':
+      cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+      first_name = request.form.get('first_name')
+      last_name = request.form.get('last_name')
+      user_name = request.form.get('username')
+      phone_no = request.form.get('phone_number')
+      email = request.form.get('email')
+      password = request.form.get('password')
+      sql_insert = 'insert into users value(\'{first_name}\',\'{last_name}\',\'{user_name}\',\'{phone_no}\',\'{email}\',\'{password}\');'.format(first_name=first_name,
+         last_name=last_name,
+         user_name=user_name,
+         phone_no=phone_no,
+         email=email,
+         password=password)
+      print(sql_insert)
+      cursor.execute(sql_insert)
+      mysql.connection.commit()
+      cursor.close()
+      #print(cursor.fetchone())
+      # cursor.execute('select * from users;')
+      # print(cursor.fetchone())
+      return redirect(url_for('login'))
     return render_template("register.html")
 
 @app.route("/view_product.html")
@@ -51,7 +89,7 @@ def view_product():
 def logout():
     return redirect('/home.html')
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
 
 
 # \hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.

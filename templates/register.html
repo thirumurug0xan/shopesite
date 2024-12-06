@@ -88,7 +88,7 @@
 	</ul>
 	</footer>
 <body>
-	<form action="jdbc:mysql://127.0.0.1:3306/onlinefashionshopping","root","Aspire@12345">
+	<form action="/register.html" method='POST'>
 		<b>
 		<h2>Registration Form</h2>
 		<label for="first_name">First Name</label>
@@ -107,86 +107,85 @@
 		<input type="text" id="username" name="username" required>
 
 		<label for="password">Password</label>
-		<input type="password" id="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
+		<input type="password" id="password" name="password" >
 		<center>
 	
-	   <button type="button" onclick="window.location.href='login.html'">Register</button>
-	  
-	</center>
+	   <button type="submit" name="submit" value='submit'>Register</button>
+	  </center>
 	</b>
 	</form>
 </body>
 </html>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Contact Us</title>
-	<style>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--	<title>Contact Us</title>-->
+<!--	<style>-->
 
-		body{
-			background-image:url("{{url_for('static',filename='register.jpeg')}}") ;
-			background-repeat: repeat;
-			background-size: cover;
-		}
-		ul {
-			background-color: black;
-		}
-		header a {
-			color: aliceblue;
-		}
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #11b89c;
-			padding: 20px;
-		}
+<!--		body{-->
+<!--			background-image:url("{{url_for('static',filename='register.jpeg')}}") ;-->
+<!--			background-repeat: repeat;-->
+<!--			background-size: cover;-->
+<!--		}-->
+<!--		ul {-->
+<!--			background-color: black;-->
+<!--		}-->
+<!--		header a {-->
+<!--			color: aliceblue;-->
+<!--		}-->
+<!--		body {-->
+<!--			font-family: Arial, sans-serif;-->
+<!--			background-color: #11b89c;-->
+<!--			padding: 20px;-->
+<!--		}-->
 
-		form {
-			background-color:transparent;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-		}
+<!--		form {-->
+<!--			background-color:transparent;-->
+<!--			padding: 20px;-->
+<!--			border-radius: 10px;-->
+<!--			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);-->
+<!--		}-->
 
-		input[type="text"],
-		input[type="email"],
-		textarea {
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			margin-bottom: 10px;
-			width: 100%;
-		}
+<!--		input[type="text"],-->
+<!--		input[type="email"],-->
+<!--		textarea {-->
+<!--			padding: 10px;-->
+<!--			border: none;-->
+<!--			border-radius: 5px;-->
+<!--			margin-bottom: 10px;-->
+<!--			width: 100%;-->
+<!--		}-->
 
-		input[type="submit"] {
-			background-color: #4CAF50;
-			color:transparent;
-			padding: 10px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			width: auto;
-			margin-top: 10px;
-		}
+<!--		input[type="submit"] {-->
+<!--			background-color: #4CAF50;-->
+<!--			color:transparent;-->
+<!--			padding: 10px;-->
+<!--			border: none;-->
+<!--			border-radius: 5px;-->
+<!--			cursor: pointer;-->
+<!--			width: auto;-->
+<!--			margin-top: 10px;-->
+<!--		}-->
 
-		input[type="submit"]:hover {
-			background-color: #45a049;
-		}
-		h1 {
-			color: aliceblue;
-		}
-	</style>
-</head>
-<header>
-	<ul>
-		<li><a href="home.html">Back</a></li>
+<!--		input[type="submit"]:hover {-->
+<!--			background-color: #45a049;-->
+<!--		}-->
+<!--		h1 {-->
+<!--			color: aliceblue;-->
+<!--		}-->
+<!--	</style>-->
+<!--</head>-->
+<!--<header>-->
+<!--	<ul>-->
+<!--		<li><a href="home.html">Back</a></li>-->
 		
-	</ul>
-</header>
-<body>
-	<h1>Contact Us</h1>
-	<form>
-<a>onlinefashionshopping24x7@gmail.com</a>
-	</form>
-</body>
-</html>
+<!--	</ul>-->
+<!--</header>-->
+<!--<body>-->
+<!--	<h1>Contact Us</h1>-->
+<!--	<form>-->
+<!--<a>onlinefashionshopping24x7@gmail.com</a>-->
+<!--	</form>-->
+<!--</body>-->
+<!--</html>-->
