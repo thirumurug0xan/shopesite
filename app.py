@@ -1,3 +1,4 @@
+#!/bin/bash
 from flask import Flask, render_template, request, jsonify, url_for , redirect
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
