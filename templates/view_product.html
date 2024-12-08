@@ -10,7 +10,8 @@
 
       <div class="product">
 
-        <!-- Use get() for safe dictionary access -->
+        <!-- Use get() for safe dictionary access syntax : i.get('key') not i
+        |get('key') which refers custom function-->
         <img src="{{ url_for('static', filename=i.get('image_name')) }}" alt="Black Opium Perfume">
 
         <h3>{{ i.get('product_name') }}</h3>
