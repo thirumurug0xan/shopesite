@@ -1,50 +1,30 @@
-{%extends 'menu_bar.html'%}
+{% extends 'menu_bar.html' %}
 
-{%block content%}
-    <section>
-      <div class="product">
-        <img src="{{url_for('static',filename='shoes.jpeg')}}" alt="Shoes">
-        <h3>Shoes</h3>
-        <p class="parablk">$10</p>
-        <a href="{{url_for('static',filename='shoes.jpeg')}}" class="button">BUY</a>
-      </div>
+{% block content %}
 
-      <div class="product">
-        <img src="{{url_for('static',filename='lip_gloss.jpeg')}}" alt="Lip Gloss">
-        <h3>Lip Gloss</h3>
-        <p class="parablk">$7</p>
-        <a href="{{url_for('static',filename='lip_gloss.jpeg')}}" class="button">BUY</a>
-      </div>
+<section>
+
+    {% for i in product_list %}
+
+    
 
       <div class="product">
-        <img src="{{url_for('static',filename='maskara.jpeg')}}" alt="Mascara">
-        <h3>Mascara</h3>
-        <p class="parablk">$10</p>
-        <a href="{{url_for('static',filename='maskara.jpeg')}}" class="button">BUY</a>
+
+        <!-- Use get() for safe dictionary access -->
+        <img src="{{ url_for('static', filename=i.get('image_name')) }}" alt="Black Opium Perfume">
+
+        <h3>{{ i.get('product_name') }}</h3>
+
+        <p class="parablk">${{ i.get('price') }}</p>
+
+        <p class="parablk">quantity : {{ i.get('quantity') }}</p>
+
+        <a href="{{ url_for('static', filename=i.get('image_name')) }}" class="button">BUY</a>
+
       </div>
 
-      <div class="product">
-        <img src="{{url_for('static',filename='Oddity_-_DISSENT_Matte_Lipstick.jpeg')}}" alt="DISSENT Matte Lipstick">
-        <h3>DISSENT Matte Lipstick</h3>
-        <p class="parablk">$5</p>
-        <a
-        href="{{url_for('static',filename='Oddity_-_DISSENT_Matte_Lipstick.jpeg')}}"
-        class="button">BUY</a>
-      </div>
-
-      <div class="product">
-        <img src="{{url_for('static',filename='Beautiful_chain_watch.jpeg')}}" alt="Beautiful Chain Watch">
-        <h3>Beautiful Chain Watch</h3>
-        <p class="parablk">$25</p>
-        <a href="{{url_for('static',filename='Beautiful_chain_watch.jpeg')}}" class="button">BUY</a>
-      </div>
-
-      <div class="product">
-        <img src="{{url_for('static',filename='perfume.jpeg')}}" alt="Black Opium Perfume">
-        <h3>Black Opium Perfume</h3>
-        <p class="parablk">$20</p>
-        <a href="{{url_for('static',filename='perfume.jpeg')}}" class="button">BUY</a>
-      </div>
-    </section>
+    {% endfor %}
+</section>
     <br><br><br><br>
-{%endblock%}
+
+{% endblock %}

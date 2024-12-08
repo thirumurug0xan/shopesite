@@ -88,9 +88,10 @@ def register():
 @app.route("/view_product.html")
 def view_product():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('select * from users;')
-    print(cursor.fetchall())
-    return render_template("view_product.html")
+    cursor.execute('select * from products;')
+    products_tuble = cursor.fetchall()
+    print(products_tuble)
+    return render_template("view_product.html",product_list=products_tuble)
 
 
 @app.route("/logout")
