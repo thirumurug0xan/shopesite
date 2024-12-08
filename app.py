@@ -1,4 +1,3 @@
-#!/bin/bash
 from flask import Flask, render_template, request, jsonify, url_for , redirect
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -11,6 +10,7 @@ app.config['MYSQL_PASSWORD'] = 'kali'
 app.config['MYSQL_DB'] = 'shopesite'
 mysql = MySQL(app)
 
+
 # Route for the login page
 @app.route("/")
 @app.route("/login.html", methods=['GET', 'POST'])
@@ -19,7 +19,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('select email,password from users where email=\'{ps}\''.format(ps=username))
+        sql_select = 'select email,password from users where email=\'{ps}\';'.format(ps=username) \
+        if '@' in username \
+        else 'select user_name,password from users where user_name=\'{ps}\';'.format(ps=username)
+        print(sql_select)
+        cursor.execute(sql_select)
         print('{p}'.format(p='hu'))
         print(username)
         account = cursor.fetchone()
@@ -27,8 +31,8 @@ def login():
           account = dict()
         print(account)
         # Check if the entered credentials match the hardcoded ones
-        print(account.get('email','no'),account.get('password','no'))
-        if username == account.get('email','no') and password == account.get('password','no'):
+        print(account.get('email','not_found'),account.get('password','not_found'))
+        if username == account.get('email','not_found') or username == account.get('user_name','not_found') and password == account.get('password','not_found'):
             return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
@@ -83,6 +87,9 @@ def register():
 
 @app.route("/view_product.html")
 def view_product():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('select * from users;')
+    print(cursor.fetchall())
     return render_template("view_product.html")
 
 
