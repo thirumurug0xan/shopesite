@@ -32,7 +32,9 @@ def login():
         print(account)
         # Check if the entered credentials match the hardcoded ones
         print(account.get('email','not_found'),account.get('password','not_found'))
-        if username == account.get('email','not_found') or username == account.get('user_name','not_found') and password == account.get('password','not_found'):
+        if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
+        and password ==
+        account.get('password','not_found'):
             return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
