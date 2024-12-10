@@ -69,6 +69,7 @@ def register():
       phone_no = request.form.get('phone_number')
       email = request.form.get('email')
       password = request.form.get('password')
+      #ensure the user_name and email are unique
       sql_insert = 'insert into users value(\'{first_name}\',\'{last_name}\',\'{user_name}\',\'{phone_no}\',\'{email}\',\'{password}\');'.format(first_name=first_name,
          last_name=last_name,
          user_name=user_name,
