@@ -96,7 +96,19 @@ def view_product():
     print(products_tuble)
     return render_template("view_product.html",product_list=products_tuble)
 
+@app.route("/admin/login",methods=['GET','POST'])
+def admin_login():
+  if 'POST' == request.method:
+    if request.form.get('admin_id') == 'admin' or 'admin'== request.form.get('password'):
+      return 'success'
+    else:
+      return 'failed'
+  return render_template('/admin/login.html')
 
+@app.route("/admin/portal")
+def admin_portal():
+  return render_template('/admin/portal.html')
+  
 @app.route("/logout")
 def logout():
     return redirect('/home.html')
