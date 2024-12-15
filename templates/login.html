@@ -78,7 +78,7 @@
 
 <header>
     <ul>
-        <li><a href="home.html">Back</a></li>
+        <li><a href="home">Back</a></li>
     </ul>
 </header>
 
@@ -108,7 +108,7 @@
             const formData = new FormData(document.getElementById('loginForm'));
     
             // Send data to the server
-            fetch('/login.html', {
+            fetch('/login', {
                 method: 'POST',
                 body: formData
             })
