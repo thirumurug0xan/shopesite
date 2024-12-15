@@ -2,6 +2,11 @@ from flask import Flask, render_template, request, jsonify, url_for , redirect
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 
+admin_name = input('Enter name for admin:')
+admin_password = input('Enter password for admin:')
+if not (admin_name and admin_password):
+   admin_name = admin_password = 'admin'
+
 app = Flask(__name__, template_folder='./templates')
 
 app.config['MYSQL_HOST'] = '127.0.0.1'
