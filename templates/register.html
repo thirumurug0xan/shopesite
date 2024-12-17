@@ -13,7 +13,7 @@
 		}
 		ul {
 			background-color: black;
-		width:;
+		width: 10px;;
 		}
 		a{
 			color: white;
@@ -24,6 +24,7 @@
 		 body 
 
          {
+			background-image:url("{{url_for('static',filename='register.jpeg')}}") ;
 			background-color: aquamarin;
 			backface-visibility: inherit;
 	 		background-size: cover;
@@ -79,7 +80,7 @@
 <header>
 	<ul>
 	
-		<a href="home.html">Back</a>
+		<a href="home">Back</a>
 	</ul>
 </header>
 <footer>
@@ -88,7 +89,7 @@
 	</ul>
 	</footer>
 <body>
-	<form action="/register.html" method='POST'>
+	<form action="/register" method='POST'>
 		<b>
 		<h2>Registration Form</h2>
 		<label for="first_name">First Name</label>

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS products (
     product_name VARCHAR(50) NOT NULL UNIQUE,
     price VARCHAR(5),
     quantity VARCHAR(50),
+    describe VARCHAR(200),
     image_name VARCHAR(50),
     PRIMARY KEY (product_name)
 );

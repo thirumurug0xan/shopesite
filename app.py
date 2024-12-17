@@ -1,6 +1,11 @@
-from flask import Flask, render_template, request, jsonify, url_for , redirect
+from flask import Flask, render_template, request, jsonify, url_for, redirect, make_response 
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
+
+# admin_name = input('Enter name for admin:')
+# admin_password = input('Enter password for admin:')
+# if not (admin_name and admin_password):
+#     admin_name = admin_password = 'admin'
 
 app = Flask(__name__, template_folder='./templates')
 
@@ -13,7 +18,7 @@ mysql = MySQL(app)
 
 # Route for the login page
 @app.route("/")
-@app.route("/login.html", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -32,7 +37,9 @@ def login():
         print(account)
         # Check if the entered credentials match the hardcoded ones
         print(account.get('email','not_found'),account.get('password','not_found'))
-        if username == account.get('email','not_found') or username == account.get('user_name','not_found') and password == account.get('password','not_found'):
+        if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
+        and \
+        password == account.get('password','not_found'):
             return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
@@ -43,23 +50,23 @@ def login():
 # def welcome(username):
 #     return f"Welcome, {username}!"
 
-@app.route("/about_us.html")
+@app.route("/about_us")
 def about_us():
     return render_template("about_us.html")
 
-@app.route("/contact_us.html")
+@app.route("/contact_us")
 def contact_us():
     return render_template("contact_us.html")
 
-@app.route("/home.html")
+@app.route("/home")
 def home_():
     return render_template("home.html")
 
-@app.route("/home2.html")
+@app.route("/home2")
 def home2():
     return render_template("home2.html")
     
-@app.route("/register.html",methods=['GET','POST'])
+@app.route("/register",methods=['GET','POST'])
 def register():
     if request.method == 'POST':
       cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -69,6 +76,7 @@ def register():
       phone_no = request.form.get('phone_number')
       email = request.form.get('email')
       password = request.form.get('password')
+      #ensure the user_name and email are unique
       sql_insert = 'insert into users value(\'{first_name}\',\'{last_name}\',\'{user_name}\',\'{phone_no}\',\'{email}\',\'{password}\');'.format(first_name=first_name,
          last_name=last_name,
          user_name=user_name,
@@ -85,7 +93,7 @@ def register():
       return redirect(url_for('login'))
     return render_template("register.html")
 
-@app.route("/view_product.html")
+@app.route("/view_product")
 def view_product():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('select * from products;')
@@ -93,10 +101,22 @@ def view_product():
     print(products_tuble)
     return render_template("view_product.html",product_list=products_tuble)
 
+@app.route("/admin/login",methods=['GET','POST'])
+def admin_login():
+  if 'POST' == request.method:
+    if request.form.get('admin_id') == 'admin' or 'admin'== request.form.get('password'):
+      return 'success'
+    else:
+      return 'failed'
+  return render_template('/admin/login.html')
 
+@app.route("/admin/portal")
+def admin_portal():
+  return render_template('/admin/portal.html')
+  
 @app.route("/logout")
 def logout():
-    return redirect('/home.html')
+    return redirect('/home')
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 
