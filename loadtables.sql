@@ -24,5 +24,6 @@ CREATE TABLE IF NOT EXISTS orders (
     order_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ordered_user VARCHAR(50),
     order_size INT(5),
+    tol_prize VARCHAR(10),
     FOREIGN KEY (ordered_user) REFERENCES users(user_name)
 );

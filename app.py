@@ -24,6 +24,11 @@ app.config['MYSQL_DB'] = 'shopesite'
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
+
+@app.route("/")
+def home():
+    return render_template("home.html")
+
 #Function declaration start from here
 def view_orders():
   pass
@@ -35,7 +40,6 @@ def add_products():
   pass
 
 # Route for the login page
-@app.route("/")
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -76,9 +80,6 @@ def about_us():
 def contact_us():
     return render_template("contact_us.html")
 
-@app.route("/home")
-def home_():
-    return render_template("home.html")
 
 @app.route("/home2")
 def home2():
@@ -138,7 +139,7 @@ def logout():
 
 @app.route('/profile')
 def profile():
-   return render_template('/profile.html')
+   return render_template('/profile.html',user_name='sample',user_email='sample@email.com')
 
 
 if __name__ == "__main__":

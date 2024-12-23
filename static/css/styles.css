@@ -146,3 +146,56 @@ section {
     .parablk {
         color:rgb(0, 0, 0)
     }
+
+    /* new styles are comming */
+
+    .profile_body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+  }
+  .profile-container {
+      max-width: 600px;
+      max-height: 40%;
+      margin: 40px auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .profile_h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+  }
+  .profile_h2 {
+      color: #555;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+  }
+  .profile_p {
+      margin: 10px 0;
+      color: #444;
+  }
+  #username, #email {
+      color: #000;
+      font-weight: bold;
+  }
+  .orders ul {
+      list-style-type: none;
+      padding: 0;
+  }
+  .orders li {
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+  }
+  .orders li strong {
+      color: #555;
+  }
