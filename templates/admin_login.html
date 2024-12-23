@@ -85,9 +85,9 @@
     <h1>ADMIN LOGIN</h1><br><br><br>
     <center>
         <!-- Form action points to '/login' -->
-        <form id="ADMIN loginForm" onsubmit="return handleLogin(event)">
+        <form id="loginForm" onsubmit="return handleLogin(event)">
             <label for="ADMIN ID"><b>ADMIN ID:</b></label>
-            <input type="text" id="ADMIN ID" name="ADMIN ID" placeholder="Enter your admin id" required>
+            <input type="text" id="ADMIN ID" name="admin_name" placeholder="Enter your admin id" required>
 
             <label for="password"><b>Password:</b></label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
@@ -107,7 +107,7 @@
             const formData = new FormData(document.getElementById('loginForm'));
     
             // Send data to the server
-            fetch('/login.html', {
+            fetch('/admin', {
                 method: 'POST',
                 body: formData
             })

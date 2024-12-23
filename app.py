@@ -63,7 +63,7 @@ def login():
         if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
         and \
         password == account.get('password','not_found'):
-            return jsonify({'status': 'success', 'redirect_url': '/home2.html'})#use cookies for best prctices #url_for('welcome', username=username)
+            return jsonify({'status': 'success', 'redirect_url': '/home'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
@@ -81,7 +81,7 @@ def about_us():
 def contact_us():
     return render_template("contact_us.html")
 
-@app.route("/home2")
+@app.route("/home")
 def home2():
     return render_template("home2.html")
     
@@ -119,14 +119,16 @@ def view_product():
     products_tuble = cursor.fetchall()
     print(products_tuble)
     return render_template("view_product.html",product_list=products_tuble)
-
+@app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():
   if 'POST' == request.method:
-    if request.form.get('admin_id') == 'admin' or 'admin'== request.form.get('password'):
-      return 'success'
+    if request.form.get('admin_name') == 'admin' and 'admin'== request.form.get('password'):
+      print(request.form.get('admin_name'))
+      return jsonify({'status': 'success', 'redirect_url': '/admin/portal'})
     else:
-      return 'failed'
+      print(request.form.get('admin_id'))
+      return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
   return render_template('/admin_login.html')
 
 @app.route('/admin/portal/update')
@@ -142,14 +144,15 @@ def admin_portal_add():
   return render_template('/admin_add.html')
 
 @app.route("/admin/portal/users")
-def admin_portal_add():
+def admin_portal_users():
   return render_template('/admin_users.html')
 
 @app.route("/admin/portal")
-def admin_portal_add():
+def admin_portal():
+  #print(url_for('logout',filename='hi')) #@app.route('/logout/<filename>') test purpose : if you didn't use '<filename>' it consider or make url as following /logout?filename=args it wil think of it as args 
   return render_template('/admin_portal.html')
 
-@app.route("/logout")
+@app.route("/logout/<filename>") #@app.route('/logout/<filename>')
 def logout():
     return redirect('/home')
 
@@ -157,10 +160,35 @@ def logout():
 def profile():
    return render_template('/profile.html',user_name='sample',user_email='sample@email.com')
 
-
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 
 
 # \hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
 # 1500.858 k/s 
+
+#Development env details
+# ┌──(kali㉿localhost)-[~]
+# └─$ neofetch
+# ..............                                     kali@localhost 
+#             ..,;:ccc,.                             -------------- 
+#           ......''';lxO.                           OS: Kali GNU/Linux Rolling aarch64 
+# .....''''..........,:ld;                           Kernel: 4.19.152-perf-25970710-abE236BXXU4CWI1 
+#            .';;;:::;,,.x,                          Uptime: 20080 days, 12 hours, 56 mins 
+#       ..'''.            0Xxoc:,.  ...              Packages: 1939 (dpkg) 
+#   ....                ,ONkc;,;cokOdc',.            Shell: bash 5.2.21 
+#  .                   OMo           ':ddo.          Resolution: 1280x720 
+#                     dMc               :OO;         DE: Xfce 4.18 
+#                     0M.                 .:o.       WM: Xfwm4 
+#                     ;Wd                            WM Theme: Kali-Dark 
+#                      ;XO,                          Theme: Kali-Dark [GTK2], adw-gtk3-dark [GTK3] 
+#                        ,d0Odlc;,..                 Icons: Flat-Remix-Blue-Dark [GTK2/3] 
+#                            ..',;:cdOOd::,.         Terminal: qterminal 
+#                                     .:d;.':;.      Terminal Font: FiraCode 10 
+#                                        'd,  .'     CPU: Qualcomm LAGOON (8) 
+#                                          ;l   ..   Memory: 3208MiB / 5427MiB 
+#                                           .o
+#                                             c                              
+#                                             .'                             
+#                                              .
+
