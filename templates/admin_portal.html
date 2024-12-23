@@ -15,15 +15,15 @@
             <div class="card">
                 <h2>Manage Users</h2>
                 <p>View, edit, and delete user accounts.</p>
-                <button>Access</button>
+                <button onclick=users()>Access</button>
             </div>
             <div class="card">
                 <h2>Manage Products</h2>
                 <p>Add, update, or remove products.</p>
-                <button>Access</button>
+                <button onclick=add()>Access</button>
             </div>
             <div class="card">
-                <h2>View Reports</h2>
+                <h2>View Orders</h2>
                 <p>Analyze sales and activity reports.</p>
                 <button>Access</button>
             </div>
@@ -34,6 +34,12 @@
             </div>
         </div>
     </main>
+    <script>function users(){
+        document.location='/admin/portal/users'
+    }
+    function add(){
+        document.location='/admin/portal/add'
+    }</script>
     <footer>
         <p>&copy; 2024 Shopesite. All rights reserved.</p>
     </footer>

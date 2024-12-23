@@ -122,9 +122,11 @@ def view_product():
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():
+  
   if 'POST' == request.method:
     if request.form.get('admin_name') == 'admin' and 'admin'== request.form.get('password'):
       print(request.form.get('admin_name'))
+      session['auth'] = request.form.get('admin_name')
       return jsonify({'status': 'success', 'redirect_url': '/admin/portal'})
     else:
       print(request.form.get('admin_id'))
@@ -133,26 +135,36 @@ def admin_login():
 
 @app.route('/admin/portal/update')
 def admin_portal_update():
+   if not session.get('auth',None):
+    return unauthorized()
    pass
 
 @app.route('/admin/portal/orders')
 def admin_portal_orders():
+   if not session.get('auth',None):
+    return unauthorized()
    pass
 
 @app.route("/admin/portal/add")
 def admin_portal_add():
+  if not session.get('auth',None):
+    return unauthorized()
   return render_template('/admin_add.html')
 
 @app.route("/admin/portal/users")
 def admin_portal_users():
+  if not session.get('auth',None):
+    return unauthorized()
   return render_template('/admin_users.html')
 
 @app.route("/admin/portal")
 def admin_portal():
   #print(url_for('logout',filename='hi')) #@app.route('/logout/<filename>') test purpose : if you didn't use '<filename>' it consider or make url as following /logout?filename=args it wil think of it as args 
+  if not session.get('auth',None):
+    return unauthorized()
   return render_template('/admin_portal.html')
 
-@app.route("/logout/<filename>") #@app.route('/logout/<filename>')
+@app.route("/logout") #@app.route('/logout/<filename>')
 def logout():
     return redirect('/home')
 
@@ -160,6 +172,8 @@ def logout():
 def profile():
    return render_template('/profile.html',user_name='sample',user_email='sample@email.com')
 
+def unauthorized():
+   return render_template('/unauthorized.html'),401
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
 
