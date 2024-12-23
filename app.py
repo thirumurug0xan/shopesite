@@ -16,6 +16,15 @@ app.config['MYSQL_PASSWORD'] = 'kali'
 app.config['MYSQL_DB'] = 'shopesite'
 mysql = MySQL(app)
 
+#Function declaration start from here
+def view_orders():
+  pass
+
+def view_status():
+  pass
+
+def add_products():
+  pass
 
 # Route for the login page
 @app.route("/")
@@ -109,11 +118,11 @@ def admin_login():
       return 'success'
     else:
       return 'failed'
-  return render_template('/admin/login.html')
+  return render_template('/admin_login.html')
 
 @app.route("/admin/portal")
 def admin_portal():
-  return render_template('/admin/portal.html')
+  return render_template('/admin_add_products.html')
   
 @app.route("/logout")
 def logout():
