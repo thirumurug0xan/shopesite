@@ -1,4 +1,11 @@
-from flask import Flask, render_template, request, jsonify, url_for, redirect, make_response 
+from flask import (Flask, 
+                   render_template, 
+                   request, 
+                   jsonify, 
+                   url_for, 
+                   redirect, 
+                   make_response,
+                   session)
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import os 
@@ -14,6 +21,7 @@ app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'kali'
 app.config['MYSQL_PASSWORD'] = 'kali'
 app.config['MYSQL_DB'] = 'shopesite'
+app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
 #Function declaration start from here
