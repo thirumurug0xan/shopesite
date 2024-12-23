@@ -140,10 +140,6 @@ def logout():
 def profile():
    return render_template('/profile.html')
 
-@app.route('/styles.css')
-def styles():
-   print(url_for('static',filename='css/styles.css'))
-   return render_template('/css/styles.css')
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
