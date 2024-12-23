@@ -98,8 +98,8 @@ def register():
       mysql.connection.commit()
       cursor.close()
       #print(cursor.fetchone())
-      # cursor.execute('select * from users;')
-      # print(cursor.fetchone())
+      #cursor.execute('select * from users;')
+      #print(cursor.fetchone())
       return redirect(url_for('login'))
     return render_template("register.html")
 
