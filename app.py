@@ -24,20 +24,21 @@ app.config['MYSQL_DB'] = 'shopesite'
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
+#Function declaration start from here
 
 @app.route("/")
 def home():
     return render_template("home.html")
 
-#Function declaration start from here
-def view_orders():
-  pass
 
-def view_status():
-  pass
+# def view_orders():
+#   pass
 
-def add_products():
-  pass
+# def view_status():
+#   pass
+
+# def add_products():
+#   pass
 
 # Route for the login page
 @app.route("/login", methods=['GET', 'POST'])
@@ -79,7 +80,6 @@ def about_us():
 @app.route("/contact_us")
 def contact_us():
     return render_template("contact_us.html")
-
 
 @app.route("/home2")
 def home2():
@@ -129,10 +129,26 @@ def admin_login():
       return 'failed'
   return render_template('/admin_login.html')
 
+@app.route('/admin/portal/update')
+def admin_portal_update():
+   pass
+
+@app.route('/admin/portal/orders')
+def admin_portal_orders():
+   pass
+
+@app.route("/admin/portal/add")
+def admin_portal_add():
+  return render_template('/admin_add.html')
+
+@app.route("/admin/portal/users")
+def admin_portal_add():
+  return render_template('/admin_users.html')
+
 @app.route("/admin/portal")
-def admin_portal():
-  return render_template('/admin_add_products.html')
-  
+def admin_portal_add():
+  return render_template('/admin_portal.html')
+
 @app.route("/logout")
 def logout():
     return redirect('/home')
