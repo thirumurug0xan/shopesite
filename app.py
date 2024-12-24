@@ -30,7 +30,6 @@ mysql = MySQL(app)
 def home():
     return render_template("home.html")
 
-
 # def view_orders():
 #   pass
 
@@ -63,6 +62,7 @@ def login():
         if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
         and \
         password == account.get('password','not_found'):
+            session['uauth'] = username
             return jsonify({'status': 'success', 'redirect_url': '/home'})#use cookies for best prctices #url_for('welcome', username=username)
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
@@ -75,14 +75,20 @@ def login():
 
 @app.route("/about_us")
 def about_us():
+    if not session.get('uauth',None):
+      return unauthorized()
     return render_template("about_us.html")
 
 @app.route("/contact_us")
 def contact_us():
+    if not session.get('uauth',None):
+      return unauthorized()
     return render_template("contact_us.html")
 
 @app.route("/home")
 def home2():
+    if not session.get('uauth',None):
+      return unauthorized()
     return render_template("home2.html")
     
 @app.route("/register",methods=['GET','POST'])
@@ -114,6 +120,8 @@ def register():
 
 @app.route("/view_product")
 def view_product():
+    if not session.get('uauth',None):
+      return unauthorized()
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('select * from products;')
     products_tuble = cursor.fetchall()
@@ -122,7 +130,6 @@ def view_product():
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():
-  
   if 'POST' == request.method:
     if request.form.get('admin_name') == 'admin' and 'admin'== request.form.get('password'):
       print(request.form.get('admin_name'))
@@ -166,7 +173,8 @@ def admin_portal():
 
 @app.route("/logout") #@app.route('/logout/<filename>')
 def logout():
-    return redirect('/home')
+    session.clear()
+    return redirect('/')
 
 @app.route('/profile')
 def profile():
