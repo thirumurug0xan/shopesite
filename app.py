@@ -179,7 +179,14 @@ def logout():
 
 @app.route('/profile')
 def profile():
-   return render_template('/profile.html',user_name='sample',user_email='sample@email.com')
+   user_name_or_email_from_session = session['uauth']
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute('select user_name,email from users where email=\'{input}\' or user_name=\'{input}\';'.format(input=user_name_or_email_from_session))
+   products_tuble = cursor.fetchone()
+   user= products_tuble.get('user_name')
+   email=products_tuble.get('email')
+   cursor.close()
+   return render_template('/profile.html',user_name=user,user_email=email)
 
 def unauthorized():
    return render_template('/unauthorized.html'),401
