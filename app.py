@@ -163,7 +163,11 @@ def admin_portal_add():
 def admin_portal_users():
   if not session.get('aauth',None):
     return unauthorized()
-  return render_template('/admin_users.html')
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  cursor.execute('select * from users;')
+  user_tuple = cursor.fetchall()
+  cursor.close()
+  return render_template('/admin_users.html',users=user_tuple)
 
 @app.route("/admin/portal")
 def admin_portal():
@@ -172,9 +176,12 @@ def admin_portal():
     return unauthorized()
   return render_template('/admin_portal.html')
 
-@app.route("/logout") #@app.route('/logout/<filename>')
-def logout():
-    session.clear()
+@app.route("/logout/<type_of>") #@app.route('/logout/<filename>')
+def logout(type_of):
+    if 'admin' == type_of:
+      session.pop('aauth','')
+    else:
+      session.pop('uauth','')
     return redirect('/')
 
 @app.route('/profile')
