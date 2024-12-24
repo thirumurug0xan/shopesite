@@ -10,6 +10,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import os 
 
+github_profile='thirumurug0xan'
 # admin_name = input('Enter name for admin:')
 # admin_password = input('Enter password for admin:')
 # if not (admin_name and admin_password):

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>View Users</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through the users data and display it -->
+            {% for user in users %}
+            <tr>
+                <td>{{ user['first_name'] }}</td>  <!-- First Name -->
+                <td>{{ user['last_name'] }}</td>   <!-- Last Name -->
+                <td>{{ user['user_name'] }}</td>   <!-- Username -->
+                <td>{{ user['phone_no'] }}</td>    <!-- Phone Number -->
+                <td>{{ user['email'] }}</td>       <!-- Email -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
