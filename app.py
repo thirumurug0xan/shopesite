@@ -103,6 +103,16 @@ def register():
       email = request.form.get('email')
       password = request.form.get('password')
       #ensure the user_name and email are unique
+      sql_verify = 'select user_name,email from users where user_name=\'{user_name}\' or email = \'{email}\''.format(
+         user_name=user_name,
+         email=email
+      )
+      cursor.execute(sql_verify)
+      verify_user = cursor.fetchone()
+      if verify_user:
+         return jsonify({'status':'Failed',
+                         'reason':'username or email already exist',
+                         'solution':'Try different email or username'})
       sql_insert = 'insert into users value(\'{first_name}\',\'{last_name}\',\'{user_name}\',\'{phone_no}\',\'{email}\',\'{password}\');'.format(first_name=first_name,
          last_name=last_name,
          user_name=user_name,
