@@ -25,6 +25,8 @@ app.config['MYSQL_DB'] = 'shopesite'
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
+admin_id = 'admin'
+admin_password = 'admin'
 #Non routing functions
 
 
@@ -150,7 +152,7 @@ def products():
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():
   if 'POST' == request.method:
-    if request.form.get('admin_name') == 'admin' and 'admin'== request.form.get('password'):
+    if request.form.get('admin_name') == admin_id and admin_password == request.form.get('password'):
       print(request.form.get('admin_name'))
       session['aauth'] = request.form.get('admin_name')
       return jsonify({'status': 'success', 'redirect_url': '/admin/portal'})
@@ -227,7 +229,16 @@ def admin_portal():
   if not session.get('aauth',None):
     return unauthorized()
   return render_template('/admin_portal.html')
-
+@app.route('/admin/portal/settings',methods = ['GET','POST'])
+def admin_settings():
+  global admin_id, admin_password
+  print(admin_password)
+  if request.method == 'POST':
+    print(request.form.get('current_password'))
+    if request.form.get('current_password') == admin_password:
+      admin_password = request.form.get('confirm_password')
+    return redirect('/admin')
+  return render_template('admin_settings.html')
 @app.route("/logout/<type_of>") #@app.route('/logout/<filename>')
 def logout(type_of):
     if 'admin' == type_of:
