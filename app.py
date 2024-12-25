@@ -25,10 +25,15 @@ app.config['MYSQL_DB'] = 'shopesite'
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
+#Non routing functions
+
+
 #Function declaration start from here
 
 @app.route("/")
 def home():
+    if session.get('uauth',None):
+        return redirect('/home')
     return render_template("home.html")
 
 # def view_orders():
@@ -68,6 +73,8 @@ def login():
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
+        if session.get('uauth',None):
+           return redirect('/home')
         return render_template('login.html')
 
 # @app.route("/welcome/<username>")
@@ -129,15 +136,16 @@ def register():
       return redirect(url_for('login'))
     return render_template("register.html")
 
-@app.route("/view_product")
-def view_product():
+@app.route("/products")
+def products():
     if not session.get('uauth',None):
       return unauthorized()
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('select * from products;')
     products_tuble = cursor.fetchall()
     print(products_tuble)
-    return render_template("view_product.html",product_list=products_tuble)
+    return render_template("products.html",product_list=products_tuble)
+
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():
@@ -163,10 +171,44 @@ def admin_portal_orders():
     return unauthorized()
    pass
 
-@app.route("/admin/portal/add")
+@app.route("/admin/portal/add",methods=['GET','POST'])
 def admin_portal_add():
   if not session.get('aauth',None):
-    return unauthorized()
+     return unauthorized()
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  if request.method == 'POST':
+     img = request.files['product_image']
+     print(img.content_type[:5])
+     if not all(char.isalpha() or char in '-_.1234567890' for char in img.filename) or 'image' != img.content_type[:5] :
+        return jsonify({'status':'failled',
+                        'reason':'file name should be alphaphet and numeric and following only characters are allowed(-_.)',
+                        'reason2':'are you trying to upload non image files'})
+     product_tuple = (
+     request.form.get('product_name'),
+     request.form.get('price'),
+     request.form.get('quantity'),
+     request.form.get('description'),
+     img.filename
+     )
+     print(product_tuple)
+     cursor.execute('select product_name, image_name from products where product_name = \'{product_name}\' or image_name = \'{image_name}\''.format(product_name = product_tuple[0], image_name = product_tuple[4]))
+     verify_product = cursor.fetchone()
+     if verify_product:
+        return jsonify({'status':'failed','reason':'product name or image name already exist'})
+     insert_product_quire = 'INSERT INTO products(product_name, price, quantity, describ, image_name) VALUES (\'{product_name}\',\'{price}\',\'{quantity}\',\'{desc}\',\'{img_name}\');'.format(
+        product_name=product_tuple[0],
+        price=product_tuple[1],
+        quantity=product_tuple[2],
+        desc = product_tuple[3],
+        img_name=product_tuple[4]
+        )
+     cursor.execute(insert_product_quire)
+     mysql.connection.commit()
+     cursor.close()
+     img.save('static/product_images/{file_name}'.format(file_name=img.filename))
+     return 'success'
+
+
   return render_template('/admin_add.html')
 
 @app.route("/admin/portal/users")

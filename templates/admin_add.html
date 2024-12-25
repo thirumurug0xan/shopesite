@@ -84,7 +84,7 @@
 </footer>
 
 <body>
-    <form action="http://127.0.0.1:5000/admin/portal/add" method="post" enctype="multipart/form-data">
+    <form action="http://192.0.0.2:5000/admin/portal/add" method="post" enctype="multipart/form-data" onclick="return validateImageSize">
         <b>
             <h2><center>WELCOME ADMIN<br><br>ADD YOUR PRODUCTS<br><br></center></h2>
 
@@ -105,8 +105,31 @@
             <input type="file" id="product_image" name="product_image" accept="image/png, image/jpeg, image/jpg" required>
 
             <br>
-            <center><input type="submit" value="ADD PRODUCT"></center>
+            <center><button type="submit">Upload Image</button></center>
         </b>
     </form>
+    <script>
+        function validateImageSize() {
+            // Get the file input element
+            var fileInput = document.getElementById("product_image");
+            var file = fileInput.files[0];
+            
+            // Check if a file is selected
+            if (!file) {
+                alert("Please select an image file.");
+                return false;
+            }
+            
+            // Check if the file size is greater than 2MB (2MB = 2 * 1024 * 1024 bytes)
+            var maxSize = 2 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert("File size must be less than 2MB. Please select a smaller image.");
+                return false;
+            }
+            
+            // If everything is fine, return true
+            return true;
+        }
+    </script>
 </body>
 </html>

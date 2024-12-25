@@ -14,7 +14,7 @@
 
         <!-- Use get() for safe dictionary access syntax : i.get('key') not i
         |get('key') which refers custom function-->
-        <img src="{{ url_for('static', filename=i.get('image_name')) }}" alt="Black Opium Perfume">
+        <img src="{{ url_for('static', filename='product_images/'+i.get('image_name')) }}" alt="Black Opium Perfume">
 
         <h3>{{ i.get('product_name') }}</h3>
 
@@ -22,7 +22,7 @@
 
         <p class="parablk">quantity : {{ i.get('quantity') }}</p>
 
-        <a href="{{ url_for('static', filename=i.get('image_name')) }}" class="button">BUY</a>
+        <a href="{{ url_for('static', filename='product_images/'+i.get('image_name')) }}" class="button">BUY</a>
 
       </div>
 
