@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            color: #3e8e41;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+        input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3e8e41;
+        }
+        button {
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3e8e41;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Product</h1>
+        <form action="/admin/portal/product/update/{{product['product_name'] }}" method="POST" enctype="multipart/form-data">
+            <label for="product_name">Product Name (Unchangeable):</label>
+            <input type="text" id="product_name" name="product_name" value="{{ product['product_name'] }}" readonly>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" value="{{ product['price'] }}" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="text" id="quantity" name="quantity" value="{{ product['quantity'] }}" required>
+
+            <label for="describ">Description:</label>
+            <input type="text" id="describ" name="describ" value="{{ product['describ'] }}" required>
+
+            <label for="image_name">Image Name:</label>
+            <input type="text" id="image_name" name="image_name" value="{{ product['image_name'] }}" readonly>
+
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
+</body>
+</html>

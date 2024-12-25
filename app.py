@@ -231,6 +231,8 @@ def admin_portal():
   return render_template('/admin_portal.html')
 @app.route('/admin/portal/settings',methods = ['GET','POST'])
 def admin_settings():
+  if not session.get('aauth',None):
+    return unauthorized()
   global admin_id, admin_password
   print(admin_password)
   if request.method == 'POST':
@@ -239,6 +241,43 @@ def admin_settings():
       admin_password = request.form.get('confirm_password')
     return redirect('/admin')
   return render_template('admin_settings.html')
+  
+@app.route('/admin/portal/manage')
+def admin_manage():
+  if not session.get('aauth',None):
+    return unauthorized()
+  return render_template('/admin_manage.html')
+  
+@app.route('/admin/portal/products')
+def admin_products():
+  if not session.get('aauth',None):
+    return unauthorized()
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  cursor.execute('select * from products;')
+  products_tuble = cursor.fetchall()
+  return render_template('/admin_products.html',products=products_tuble)
+  
+#@app.route('/admin/portal/product/update',methods = ['GET','POST'])
+@app.route('/admin/portal/product/update/<product_name>',methods=['GET','POST'])
+def admin_product_update(product_name):
+  #print(product_name)
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  if 'POST' == request.method:
+    cursor.execute('update products set price = \'{price}\', quantity = \'{quantity}\', describ = \'{describ}\' WHERE product_name = \'{product_name}\';'.format(
+    price=request.form.get('price'),
+    quantity=request.form.get('quantity'),
+    describ=request.form.get('describ'),
+    product_name=product_name)
+    )
+    cursor.connection.commit()
+    return jsonify({'status':'success',
+      'commit':'success'
+    })
+  cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
+  edit_product_tuple = cursor.fetchone()
+  print(edit_product_tuple)
+  return render_template('/admin_update.html',product = edit_product_tuple)
+
 @app.route("/logout/<type_of>") #@app.route('/logout/<filename>')
 def logout(type_of):
     if 'admin' == type_of:
