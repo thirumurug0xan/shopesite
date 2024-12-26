@@ -148,6 +148,13 @@ def products():
     print(products_tuble)
     return render_template("products.html",product_list=products_tuble)
 
+@app.route('/products/<product_name>')
+def buy_product(product_name):
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
+  product_tuple = cursor.fetchone()
+  return render_template('/buy_product.html',product_tuple=product_tuple)
+
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
 def admin_login():

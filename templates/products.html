@@ -22,7 +22,7 @@
 
         <p class="parablk">quantity : {{ i.get('quantity') }}</p>
 
-        <a href="{{ url_for('static', filename='product_images/'+i.get('image_name')) }}" class="button">BUY</a>
+        <a href="products/{{ i.get('product_name') }}" class="button">BUY</a>
 
       </div>
 
