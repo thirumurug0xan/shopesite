@@ -27,3 +27,5 @@ CREATE TABLE IF NOT EXISTS orders (
     tol_prize VARCHAR(10),
     FOREIGN KEY (ordered_user) REFERENCES users(user_name)
 );
+
+ALTER TABLE orders AUTO_INCREMENT = 1000;

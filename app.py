@@ -155,9 +155,29 @@ def view_product(product_name):
   product_tuple = cursor.fetchone()
   return render_template('/view_product.html',product_tuple=product_tuple)
 
-@app.route('/product/buy/<product_name>',methods=['POST'])
-def buy_product(product_name):
+@app.route('/product/buy',methods=['POST'])
+def buy_product():
    print(request.json)
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=request.json.get('product_name')))
+   product = cursor.fetchone()
+   if not product:
+      return jsonify(status='failed',reason='you are tring to order a product that is not exist in our database',solution='reload the page')
+   cursor.execute('select user_name from users where user_name = \'{user_name_or_email}\' or email = \'{user_name_or_email}\''.format(user_name_or_email=session.get('uauth')))
+   user_name = cursor.fetchone().get('user_name')
+   if not user_name:
+      return jsonify(status='failed',reason='login properly',solution = 'contact our support team')
+   print(user_name)
+   tol_price = int(request.json.get('quantity')) * int(product.get('price'))
+   cursor.execute(
+      'insert into orders(ordered_product,ordered_user,order_size,tol_prize,address) values(\'{ordered_product}\',\'{ordered_user}\',\'{order_size}\',\'{tol_prize}\',\'{address}\')'.format(
+        ordered_product = request.json.get('product_name'),
+        ordered_user = user_name,
+        order_size = request.json.get('quantity'),
+        tol_prize = str(tol_price),
+        address = request.json.get('address')
+   ))
+   cursor.connection.commit()
    return jsonify(confirmation='working')
 
 @app.route('/admin',methods=['GET','POST'])
@@ -209,7 +229,7 @@ def admin_portal_add():
      verify_product = cursor.fetchone()
      if verify_product:
         return jsonify({'status':'failed','reason':'product name or image name already exist'})
-     insert_product_quire = 'INSERT INTO products(product_name, price, quantity, describ, image_name) VALUES (\'{product_name}\',\'{price}\',\'{quantity}\',\'{desc}\',\'{img_name}\');'.format(
+     insert_product_quire = 'insert into products(product_name, price, quantity, describ, image_name) VALUES (\'{product_name}\',\'{price}\',\'{quantity}\',\'{desc}\',\'{img_name}\');'.format(
         product_name=product_tuple[0],
         price=product_tuple[1],
         quantity=product_tuple[2],

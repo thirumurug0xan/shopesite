@@ -53,7 +53,7 @@
             margin: 20px 0;
         }
         .address-field textarea {
-            width: 95%;
+            width: 85%;
             height: 100px;
             font-size: 16px;
             padding: 10px;
@@ -62,6 +62,7 @@
         }
         .buy-button {
             background-color: #4CAF50;
+            width: 90%;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -81,7 +82,7 @@
     </div>
     <div class="product-details">
         <h2>{{product_tuple.get('product_name')}}</h2>
-        <p><strong>Only: </strong>&dollar;<span id="price">{{product_tuple.get('price')}}</span></p>
+        <p>&dollar;<span id="price">{{product_tuple.get('price')}}</span></p>
         <p><strong>Available Quantity:</strong> <span id="available-quantity">{{product_tuple.get('quantity')}}</span></p>
         <p>
             <strong>Enter Quantity:</strong>
@@ -102,7 +103,7 @@
         <label for="address"><strong>Delivery Address:</strong></label>
         <textarea id="address" placeholder="Enter your full address"></textarea>
     </div>
-
+    <!-- <p><strong>For now cash on delivery only available</strong></p> -->
     <button class="buy-button" onclick="buyProduct()">Buy Now</button>
 </div>
 
@@ -147,12 +148,12 @@
         }
 
         const data = {
-            productName: productName,
+            product_name: productName,
             quantity: quantity,
             address: address,
         };
 
-        fetch('/product/buy/{{product_tuple.get('product_name')}}', {
+        fetch('/product/buy', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
