@@ -149,11 +149,16 @@ def products():
     return render_template("products.html",product_list=products_tuble)
 
 @app.route('/products/<product_name>')
-def buy_product(product_name):
+def view_product(product_name):
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_tuple = cursor.fetchone()
-  return render_template('/buy_product.html',product_tuple=product_tuple)
+  return render_template('/view_product.html',product_tuple=product_tuple)
+
+@app.route('/product/buy/<product_name>',methods=['POST'])
+def buy_product(product_name):
+   print(request.json)
+   return jsonify(confirmation='working')
 
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
