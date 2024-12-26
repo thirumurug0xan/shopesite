@@ -12,11 +12,16 @@
         </div>
         <div class="orders">
             <h2 class="profile_h2">Orders</h2>
+            <p style="color: black;">last 3 records</p>
             <ul id="orders-list">
-                <li style="color:black">Order #1: Laptop - <strong>Delivered</strong></li>
-                <li style="color:black">Order #2: Smartphone - <strong>Shipped</strong></li>
-                <li style="color:black">Order #3: Headphones - <strong>Pending</strong></li>
+                {% for order in orders[-3:]%}
+                <li style="color:black">Order #{{order.get('order_id')}}: {{order.get('ordered_product')}} - <strong>&dollar;{{order.get('tol_prize')}}</strong></li>
+                {%endfor%}
+                <a href="/profile/all/orders">show all orders</aa>
             </ul>
         </div>
     </div>
+
+    <!-- <li style="color:black">Order #2: Smartphone - <strong>Shipped</strong></li>
+    <li style="color:black">Order #3: Headphones - <strong>Pending</strong></li> -->
 {%endblock%}

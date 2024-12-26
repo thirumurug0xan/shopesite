@@ -178,7 +178,13 @@ def buy_product():
         address = request.json.get('address')
    ))
    cursor.connection.commit()
-   return jsonify(confirmation='working')
+   return jsonify(confirmation='sucessful')
+
+@app.route('/admin/portal/orders')
+def admin_orders():
+  cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+  cursor.execute('select * from orders;')
+  return render_template('/admin_orders.html',orders=cursor.fetchall())
 
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
@@ -326,8 +332,13 @@ def profile():
    products_tuble = cursor.fetchone()
    user= products_tuble.get('user_name')
    email=products_tuble.get('email')
+   cursor.execute('select * from orders where ordered_user = \'{user_name}\''.format(user_name=user))
+   orders = cursor.fetchall()
    cursor.close()
-   return render_template('/profile.html',user_name=user,user_email=email)
+   return render_template('/profile.html',user_name=user,user_email=email,orders=orders)
+@app.route('/profile/all/orders')
+def profile_all_orders():
+   return render_template('/loading')
 
 def unauthorized():
    return render_template('/unauthorized.html'),401
