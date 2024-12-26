@@ -336,9 +336,21 @@ def profile():
    orders = cursor.fetchall()
    cursor.close()
    return render_template('/profile.html',user_name=user,user_email=email,orders=orders)
+   
+
+
 @app.route('/profile/all/orders')
 def profile_all_orders():
-   return render_template('/loading')
+   user_name_or_email_from_session = session['uauth']
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute('select user_name from users where email=\'{input}\' or user_name=\'{input}\';'.format(input=user_name_or_email_from_session))
+   users_tuble = cursor.fetchone()
+   user= users_tuble.get('user_name')
+   cursor.execute('select * from orders where ordered_user = \'{user_name}\''.format(user_name=user))
+   orders = cursor.fetchall()
+   cursor.close()
+   return render_template('/all_orders.html',orders=orders)
+   
 
 def unauthorized():
    return render_template('/unauthorized.html'),401

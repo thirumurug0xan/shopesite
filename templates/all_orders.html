@@ -1,23 +1,15 @@
 {%extends 'menu_bar.html'%}
 
-{%block title%}profile{%endblock%}
+{%block title%}orders{%endblock%}
 
 {%block content%}
-    <div class="profile-container">
-        <h1 class="profile_h1">Profile Page</h1>
-        <div class="profile-info">
-            <h2 class="profile_h2">User Information</h2>
-            <p class="profile_p"><strong>Username:</strong> <span id="username">{{user_name}}</span></p>
-            <p class="profile_p"><strong>Email Address:</strong> <span id="email">{{user_email}}</span></p>
-        </div>
         <div class="orders">
             <h2 class="profile_h2">Orders</h2>
             <p style="color: black;">last 3 records</p>
             <ul id="orders-list">
-                {% for order in orders[-3:]%}
+                {% for order in orders %}
                 <li style="color:black">Order #{{order.get('order_id')}}: {{order.get('ordered_product')}} - <strong>&dollar;{{order.get('tol_prize')}}</strong></li>
                 {%endfor%}
-                <a href="/profile/all/orders">show all orders</a>
             </ul>
         </div>
     </div>
