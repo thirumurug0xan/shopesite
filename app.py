@@ -178,6 +178,11 @@ def buy_product():
         address = request.json.get('address')
    ))
    cursor.connection.commit()
+   cursor.execute('update products set quantity = \'{new_quantity}\' where product_name = \'{product_name}\''.format(
+     product_name=request.json.get('product_name'),
+     new_quantity=str(int(product.get('quantity'))-int(request.json.get('quantity')))))
+   cursor.connection.commit()
+   
    return jsonify(confirmation='sucessful')
 
 @app.route('/admin/portal/orders')
