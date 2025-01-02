@@ -78,12 +78,12 @@
 
 <div class="product-container">
     <div class="product-image">
-        <img src="{{url_for('static',filename='product_images/'+product_tuple.get('image_name'))}}" alt="Product Image">
+        <img src="{{url_for('static',filename='product_images/'+product_dict.get('image_name'))}}" alt="Product Image">
     </div>
     <div class="product-details">
-        <h2>{{product_tuple.get('product_name')}}</h2>
-        <p>&dollar;<span id="price">{{product_tuple.get('price')}}</span></p>
-        <p><strong>Available Quantity:</strong> <span id="available-quantity">{{product_tuple.get('quantity')}}</span></p>
+        <h2>{{product_dict.get('product_name')}}</h2>
+        <p>&dollar;<span id="price">{{product_dict.get('price')}}</span></p>
+        <p><strong>Available Quantity:</strong> <span id="available-quantity">{{product_dict.get('quantity')}}</span></p>
         <p>
             <strong>Enter Quantity:</strong>
             <div class="quantity-control">
@@ -92,9 +92,12 @@
                 <button onclick="changeQuantity(1)">+</button>
             </div>
         </p>
-        <p><strong>Total Price:</strong> $<span id="total-price">{{'%.2f'|format(product_tuple.get('price')|float)}}</span></p>
+        <p><strong>Total Price:</strong> $<span id="total-price">{{'%.2f'|format(product_dict.get('price')|float)}}</span></p>
         <p><strong>Description:</strong>
-        {{product_tuple.get('describ')}}
+        {{product_dict.get('describ')}}
+        {%if link%}
+        <a href='{{link}}'>{{link}}</a>
+        {%endif%}
         </p>
     </div>
     

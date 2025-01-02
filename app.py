@@ -152,8 +152,19 @@ def products():
 def view_product(product_name):
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
-  product_tuple = cursor.fetchone()
-  return render_template('/view_product.html',product_tuple=product_tuple)
+  product_dict = cursor.fetchone()
+  print(product_dict)
+  link = ''
+  if 'http' in product_dict.get('describ'):
+    raw_link = product_dict.get('describ')[product_dict.get('describ').find('http'):]
+    link = raw_link.split()
+    print(link)
+    describ = product_dict.get('describ')
+    filter_describ = describ.split()
+    temp = [i if 'http' not in i else '' for i in filter_describ]
+    describ = ' '.join(temp)
+    product_dict.update(describ=describ)
+  return render_template('/view_product.html',product_dict=product_dict,link=link[0] or '')
 
 @app.route('/product/buy',methods=['POST'])
 def buy_product():
