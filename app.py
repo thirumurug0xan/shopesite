@@ -18,10 +18,18 @@ github_profile='thirumurug0xan'
 
 app = Flask(__name__, template_folder='./templates')
 
+#local config
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'kali'
 app.config['MYSQL_PASSWORD'] = 'kali'
 app.config['MYSQL_DB'] = 'shopesite'
+
+#Remote config
+# app.config['MYSQL_HOST'] = '127.0.0.1'
+# app.config['MYSQL_USER'] = 'kali'
+# app.config['MYSQL_PASSWORD'] = 'kali'
+# app.config['MYSQL_DB'] = 'shopesite'
+
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
