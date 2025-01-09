@@ -17,8 +17,9 @@ Shopesite is a dynamic, user-friendly e-commerce platform designed for modern bu
   - Order history and wishlist features.    
 - **Bandwidth**
   - Very less Bandwidth and latency
-  - Rich experience 
-## Requirements  
+  - Rich experience
+
+## Specification   
 - Python 3.12.8
 - Database: MySQL
 - Frontend: HTML, CSS, JavaScript
