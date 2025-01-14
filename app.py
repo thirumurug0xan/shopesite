@@ -11,14 +11,10 @@ import MySQLdb.cursors
 import os 
 
 github_profile='thirumurug0xan'
-# admin_name = input('Enter name for admin:')
-# admin_password = input('Enter password for admin:')
-# if not (admin_name and admin_password):
-#     admin_name = admin_password = 'admin'
 
 app = Flask(__name__, template_folder='./templates')
 
-#local config
+#Local config
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'kali'
 app.config['MYSQL_PASSWORD'] = 'kali'
@@ -35,9 +31,6 @@ mysql = MySQL(app)
 
 admin_id = 'admin'
 admin_password = 'admin'
-#Non routing functions
-
-
 #Function declaration start from here
 
 @app.route("/")
@@ -45,15 +38,6 @@ def home():
     if session.get('uauth',None):
         return redirect('/home')
     return render_template("home.html")
-
-# def view_orders():
-#   pass
-
-# def view_status():
-#   pass
-
-# def add_products():
-#   pass
 
 # Route for the login page
 @app.route("/login", methods=['GET', 'POST'])
@@ -87,9 +71,6 @@ def login():
            return redirect('/home')
         return render_template('login.html')
 
-# @app.route("/welcome/<username>")
-# def welcome(username):
-#     return f"Welcome, {username}!"
 
 @app.route("/about_us")
 def about_us():
@@ -97,18 +78,21 @@ def about_us():
       return unauthorized()
     return render_template("about_us.html")
 
+
 @app.route("/contact_us")
 def contact_us():
     if not session.get('uauth',None):
       return unauthorized()
     return render_template("contact_us.html")
 
+
 @app.route("/home")
 def home2():
     if not session.get('uauth',None):
       return unauthorized()
     return render_template("home2.html")
-    
+
+
 @app.route("/register",methods=['GET','POST'])
 def register():
     if request.method == 'POST':
@@ -140,11 +124,9 @@ def register():
       cursor.execute(sql_insert)
       mysql.connection.commit()
       cursor.close()
-      #print(cursor.fetchone())
-      #cursor.execute('select * from users;')
-      #print(cursor.fetchone())
       return redirect(url_for('login'))
     return render_template("register.html")
+
 
 @app.route("/products")
 def products():
@@ -155,6 +137,7 @@ def products():
     products_tuble = cursor.fetchall()
     print(products_tuble)
     return render_template("products.html",product_list=products_tuble)
+
 
 @app.route('/products/<product_name>')
 def view_product(product_name):
@@ -173,6 +156,7 @@ def view_product(product_name):
     describ = ' '.join(temp)
     product_dict.update(describ=describ)
   return render_template('/view_product.html',product_dict=product_dict,link=link[0] or '')
+
 
 @app.route('/product/buy',methods=['POST'])
 def buy_product():
@@ -204,11 +188,13 @@ def buy_product():
    
    return jsonify(confirmation='sucessful')
 
+
 @app.route('/admin/portal/orders')
 def admin_orders():
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from orders;')
   return render_template('/admin_orders.html',orders=cursor.fetchall())
+
 
 @app.route('/admin',methods=['GET','POST'])
 @app.route("/admin/login",methods=['GET','POST'])
@@ -223,17 +209,20 @@ def admin_login():
       return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
   return render_template('/admin_login.html')
 
+
 @app.route('/admin/portal/update')
 def admin_portal_update():
    if not session.get('aauth',None):
     return unauthorized()
    pass
 
+
 @app.route('/admin/portal/orders')
 def admin_portal_orders():
    if not session.get('aauth',None):
     return unauthorized()
    pass
+
 
 @app.route("/admin/portal/add",methods=['GET','POST'])
 def admin_portal_add():
@@ -275,6 +264,7 @@ def admin_portal_add():
 
   return render_template('/admin_add.html')
 
+
 @app.route("/admin/portal/users")
 def admin_portal_users():
   if not session.get('aauth',None):
@@ -285,12 +275,14 @@ def admin_portal_users():
   cursor.close()
   return render_template('/admin_users.html',users=user_tuple)
 
+
 @app.route("/admin/portal")
 def admin_portal():
-  #print(url_for('logout',filename='hi')) #@app.route('/logout/<filename>') test purpose : if you didn't use '<filename>' it consider or make url as following /logout?filename=args it wil think of it as args 
   if not session.get('aauth',None):
     return unauthorized()
   return render_template('/admin_portal.html')
+
+
 @app.route('/admin/portal/settings',methods = ['GET','POST'])
 def admin_settings():
   if not session.get('aauth',None):
@@ -303,13 +295,15 @@ def admin_settings():
       admin_password = request.form.get('confirm_password')
     return redirect('/admin')
   return render_template('admin_settings.html')
-  
+
+
 @app.route('/admin/portal/manage')
 def admin_manage():
   if not session.get('aauth',None):
     return unauthorized()
   return render_template('/admin_manage.html')
-  
+
+
 @app.route('/admin/portal/products')
 def admin_products():
   if not session.get('aauth',None):
@@ -319,10 +313,9 @@ def admin_products():
   products_tuble = cursor.fetchall()
   return render_template('/admin_products.html',products=products_tuble)
   
-#@app.route('/admin/portal/product/update',methods = ['GET','POST'])
+
 @app.route('/admin/portal/product/update/<product_name>',methods=['GET','POST'])
 def admin_product_update(product_name):
-  #print(product_name)
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   if 'POST' == request.method:
     cursor.execute('update products set price = \'{price}\', quantity = \'{quantity}\', describ = \'{describ}\' WHERE product_name = \'{product_name}\';'.format(
@@ -340,7 +333,7 @@ def admin_product_update(product_name):
   print(edit_product_tuple)
   return render_template('/admin_update.html',product = edit_product_tuple)
 
-@app.route("/logout/<type_of>") #@app.route('/logout/<filename>')
+@app.route("/logout/<type_of>")
 def logout(type_of):
     if 'admin' == type_of:
       session.pop('aauth','')
@@ -361,7 +354,6 @@ def profile():
    cursor.close()
    return render_template('/profile.html',user_name=user,user_email=email,orders=orders)
    
-
 
 @app.route('/profile/all/orders')
 def profile_all_orders():
