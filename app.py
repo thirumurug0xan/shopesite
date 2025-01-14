@@ -1,4 +1,4 @@
-from flask import (Flask, 
+from flask import (Flask,
                    render_template, 
                    request, 
                    jsonify, 
@@ -370,8 +370,9 @@ def profile_all_orders():
 
 def unauthorized():
    return render_template('/unauthorized.html'),401
+
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0')
+    app.run(host='0.0.0.0')
 
 
 # \hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
