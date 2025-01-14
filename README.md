@@ -92,5 +92,5 @@ That is because you either forget to create a venv or activating venv
     hint: See PEP 668 for the detailed specification.
 ```
 ## Contact
-[Linkedin profile](https://linkedin.com/in/thirumurug0xan)
-[Instagram profile](https://Instagram.com/thirumurug0xan)
+[Linkedin](https://linkedin.com/in/thirumurug0xan)\
+[Instagram](https://Instagram.com/thirumurug0xan)
