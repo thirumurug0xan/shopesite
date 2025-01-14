@@ -141,6 +141,8 @@ def products():
 
 @app.route('/products/<product_name>')
 def view_product(product_name):
+  if '\'' in product_name:
+     return jsonify(error=True,reason='something went wrong')
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_dict = cursor.fetchone()
@@ -160,7 +162,8 @@ def view_product(product_name):
 
 @app.route('/product/buy',methods=['POST'])
 def buy_product():
-   print(request.json)
+   if '\'' in request.json.get('product_name'):
+     return jsonify(error=True,reason='something went wrong')
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=request.json.get('product_name')))
    product = cursor.fetchone()
