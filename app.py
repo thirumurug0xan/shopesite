@@ -29,8 +29,11 @@ app.config['MYSQL_DB'] = 'shopesite'
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
-admin_id = 'admin'
+#THESE ARE HARD CODED CREDS
+
+admin_id = 'admin' 
 admin_password = 'admin'
+
 #Function declaration start from here
 
 @app.route("/")
@@ -137,6 +140,8 @@ def view_product(product_name):
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_dict = cursor.fetchone()
   link = ' '
+  if not product_dict:
+     return jsonify(error=True,reason='misspelled product name')
   if 'http' in product_dict.get('describ'):
     raw_link = product_dict.get('describ')[product_dict.get('describ').find('http'):]
     link = raw_link.split()
@@ -234,8 +239,6 @@ def admin_portal_add():
      cursor.close()
      img.save('static/product_images/{file_name}'.format(file_name=img.filename))
      return 'success'
-
-
   return render_template('/admin_add.html')
 
 
@@ -306,6 +309,7 @@ def admin_product_update(product_name):
   edit_product_tuple = cursor.fetchone()
   return render_template('/admin_update.html',product = edit_product_tuple)
 
+
 @app.route("/logout/<type_of>")
 def logout(type_of):
     if 'admin' == type_of:
@@ -313,6 +317,7 @@ def logout(type_of):
     else:
       session.pop('uauth','')
     return redirect('/')
+
 
 @app.route('/profile')
 def profile():
