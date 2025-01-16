@@ -21,9 +21,9 @@ Shopesite is a dynamic, user-friendly e-commerce platform designed for modern bu
 
 ## Specification   
 - Python 3.12.8
-- Database: MySQL
 - Frontend: HTML, CSS, JavaScript
 - Backend: Python Flask
+- Database: MySQL
 
 ## Installation  
 1. Clone the repository:  
@@ -91,6 +91,20 @@ That is because you either forget to create a venv or activating venv
     note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
     hint: See PEP 668 for the detailed specification.
 ```
+
+## Vulnerbilty disclosure
+If you discover a security vulnerability in this project, please report it responsibly by following these steps:
+1. **Contact Us**:  
+   - Email: cybermrgan@gmail.com
+2. **Provide the Following Information**:  
+   - A clear and detailed description of the vulnerability.  
+   - Steps to reproduce the issue, including any required code or configurations.  
+   - Proof of Concept (PoC) if available.  
+   - The potential impact and severity of the vulnerability.
+3. **Acknowledgment**:  
+   - If your report is valid, we will acknowledge your contribution in our project documentation or release notes.
+
 ## Contact
 [Linkedin](https://linkedin.com/in/thirumurug0xan)\
 [Instagram](https://Instagram.com/thirumurug0xan)
+
