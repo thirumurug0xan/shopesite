@@ -53,12 +53,11 @@ def login():
         account = cursor.fetchone()
         if not account:
           account = dict()
-        # Check if the entered credentials match the hardcoded ones
         if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
         and \
         password == account.get('password','not_found'):
             session['uauth'] = username
-            return jsonify({'status': 'success', 'redirect_url': '/home'})#use cookies for best prctices #url_for('welcome', username=username)
+            return jsonify({'status': 'success', 'redirect_url': '/home'})
         else:
             return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
     else:
@@ -151,7 +150,7 @@ def view_product(product_name):
 
 @app.route('/product/buy',methods=['POST'])
 def buy_product():
-   if '\'' in request.json.get('product_name'):
+   if '\'' in request.json.get('product_name') or '\'' in request.json.get('address') or not type(int())==type(request.json.get('quantity')):
      return jsonify(error=True,reason='something went wrong')
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=request.json.get('product_name')))
@@ -318,7 +317,7 @@ def logout(type_of):
 @app.route('/profile')
 def profile():
    if not session.get('uauth',None):
-    return unauthorized()
+    return redirect('/')
    user_name_or_email_from_session = session['uauth']
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select user_name,email from users where email=\'{input}\' or user_name=\'{input}\';'.format(input=user_name_or_email_from_session))
@@ -363,10 +362,10 @@ if __name__ == "__main__":
 #             ..,;:ccc,.                             -------------- 
 #           ......''';lxO.                           OS: Kali GNU/Linux Rolling aarch64 
 # .....''''..........,:ld;                           Kernel: 4.19.152-perf-25970710-abE236BXXU4CWI1 
-#            .';;;:::;,,.x,                          Uptime: 20080 days, 12 hours, 56 mins 
-#       ..'''.            0Xxoc:,.  ...              Packages: 1939 (dpkg) 
+#            .';;;:::;,,.x,                          Uptime: 20104 days, 13 hours, 28 mins 
+#       ..'''.            0Xxoc:,.  ...              Packages: 2005 (dpkg) 
 #   ....                ,ONkc;,;cokOdc',.            Shell: bash 5.2.21 
-#  .                   OMo           ':ddo.          Resolution: 1280x720 
+#  .                   OMo           ':ddo.          Resolution: 1360x768 
 #                     dMc               :OO;         DE: Xfce 4.18 
 #                     0M.                 .:o.       WM: Xfwm4 
 #                     ;Wd                            WM Theme: Kali-Dark 
@@ -375,11 +374,12 @@ if __name__ == "__main__":
 #                            ..',;:cdOOd::,.         Terminal: qterminal 
 #                                     .:d;.':;.      Terminal Font: FiraCode 10 
 #                                        'd,  .'     CPU: Qualcomm LAGOON (8) 
-#                                          ;l   ..   Memory: 3208MiB / 5427MiB 
+#                                          ;l   ..   Memory: 4573MiB / 5427MiB 
 #                                           .o
 #                                             c                              
 #                                             .'                             
 #                                              .
+
 
 
 # Ourproject completed as of
