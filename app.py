@@ -49,16 +49,11 @@ def login():
         sql_select = 'select email,password from users where email=\'{ps}\';'.format(ps=username) \
         if '@' in username \
         else 'select user_name,password from users where user_name=\'{ps}\';'.format(ps=username)
-        print(sql_select)
         cursor.execute(sql_select)
-        print('{p}'.format(p='hu'))
-        print(username)
         account = cursor.fetchone()
         if not account:
           account = dict()
-        print(account)
         # Check if the entered credentials match the hardcoded ones
-        print(account.get('email','not_found'),account.get('password','not_found'))
         if (username == account.get('email','not_found') or username == account.get('user_name','not_found'))\
         and \
         password == account.get('password','not_found'):
@@ -120,7 +115,6 @@ def register():
          phone_no=phone_no,
          email=email,
          password=password)
-      print(sql_insert)
       cursor.execute(sql_insert)
       mysql.connection.commit()
       cursor.close()
@@ -135,7 +129,6 @@ def products():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('select * from products;')
     products_tuble = cursor.fetchall()
-    print(products_tuble)
     return render_template("products.html",product_list=products_tuble)
 
 
@@ -146,12 +139,10 @@ def view_product(product_name):
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_dict = cursor.fetchone()
-  print(product_dict)
   link = ' '
   if 'http' in product_dict.get('describ'):
     raw_link = product_dict.get('describ')[product_dict.get('describ').find('http'):]
     link = raw_link.split()
-    print(link)
     describ = product_dict.get('describ')
     filter_describ = describ.split()
     temp = [i if 'http' not in i else '' for i in filter_describ]
@@ -173,7 +164,6 @@ def buy_product():
    user_name = cursor.fetchone().get('user_name')
    if not user_name:
       return jsonify(status='failed',reason='login properly',solution = 'contact our support team')
-   print(user_name)
    tol_price = int(request.json.get('quantity')) * int(product.get('price'))
    cursor.execute(
       'insert into orders(ordered_product,ordered_user,order_size,tol_prize,address) values(\'{ordered_product}\',\'{ordered_user}\',\'{order_size}\',\'{tol_prize}\',\'{address}\')'.format(
@@ -204,11 +194,9 @@ def admin_orders():
 def admin_login():
   if 'POST' == request.method:
     if request.form.get('admin_name') == admin_id and admin_password == request.form.get('password'):
-      print(request.form.get('admin_name'))
       session['aauth'] = request.form.get('admin_name')
       return jsonify({'status': 'success', 'redirect_url': '/admin/portal'})
     else:
-      print(request.form.get('admin_id'))
       return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
   return render_template('/admin_login.html')
 
@@ -245,7 +233,6 @@ def admin_portal_add():
      request.form.get('description'),
      img.filename
      )
-     print(product_tuple)
      cursor.execute('select product_name, image_name from products where product_name = \'{product_name}\' or image_name = \'{image_name}\''.format(product_name = product_tuple[0], image_name = product_tuple[4]))
      verify_product = cursor.fetchone()
      if verify_product:
@@ -290,9 +277,7 @@ def admin_settings():
   if not session.get('aauth',None):
     return unauthorized()
   global admin_id, admin_password
-  print(admin_password)
   if request.method == 'POST':
-    print(request.form.get('current_password'))
     if request.form.get('current_password') == admin_password:
       admin_password = request.form.get('confirm_password')
     return redirect('/admin')
@@ -332,7 +317,6 @@ def admin_product_update(product_name):
     })
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   edit_product_tuple = cursor.fetchone()
-  print(edit_product_tuple)
   return render_template('/admin_update.html',product = edit_product_tuple)
 
 @app.route("/logout/<type_of>")
