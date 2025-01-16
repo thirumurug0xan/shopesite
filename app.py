@@ -26,7 +26,7 @@ app.config['MYSQL_DB'] = 'shopesite'
 # app.config['MYSQL_PASSWORD'] = 'kali'
 # app.config['MYSQL_DB'] = 'shopesite'
 
-app.secret_key = 'QWEAS5419TWBCCPN'
+app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
 admin_id = 'admin'
