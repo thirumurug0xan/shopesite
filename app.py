@@ -26,7 +26,7 @@ app.config['MYSQL_DB'] = 'shopesite'
 # app.config['MYSQL_PASSWORD'] = 'kali'
 # app.config['MYSQL_DB'] = 'shopesite'
 
-app.secret_key = 'super_secret'
+app.secret_key = 'QWEAS5419TWBCCPN'
 mysql = MySQL(app)
 
 admin_id = 'admin'
@@ -142,12 +142,12 @@ def products():
 @app.route('/products/<product_name>')
 def view_product(product_name):
   if '\'' in product_name:
-     return jsonify(error=True,reason='something went wrong')
+     return jsonify(error=True,reason='untentented character found')
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_dict = cursor.fetchone()
   print(product_dict)
-  link = ''
+  link = ' '
   if 'http' in product_dict.get('describ'):
     raw_link = product_dict.get('describ')[product_dict.get('describ').find('http'):]
     link = raw_link.split()
@@ -234,11 +234,10 @@ def admin_portal_add():
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   if request.method == 'POST':
      img = request.files['product_image']
-     print(img.content_type[:5])
      if not all(char.isalpha() or char in '-_.1234567890' for char in img.filename) or 'image' != img.content_type[:5] :
         return jsonify({'status':'failled',
                         'reason':'file name should be alphaphet and numeric and following only characters are allowed(-_.)',
-                        'reason2':'are you trying to upload non image files'})
+                        'reason2':'are you sure to upload a image ?'})
      product_tuple = (
      request.form.get('product_name'),
      request.form.get('price'),
@@ -375,7 +374,7 @@ def unauthorized():
    return render_template('/unauthorized.html'),401
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0')
 
 
 # \hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
