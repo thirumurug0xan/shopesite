@@ -124,8 +124,6 @@ def register():
 
 @app.route("/products")
 def products():
-    if not session.get('uauth',None):
-      return unauthorized()
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('select * from products;')
     products_tuble = cursor.fetchall()
@@ -184,6 +182,8 @@ def buy_product():
 
 @app.route('/admin/portal/orders')
 def admin_orders():
+  if not session.get('aauth',None):
+    return unauthorized()
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from orders;')
   return render_template('/admin_orders.html',orders=cursor.fetchall())
@@ -199,20 +199,6 @@ def admin_login():
     else:
       return jsonify({'status': 'fail', 'message': 'Invalid credentials, please try again.'})
   return render_template('/admin_login.html')
-
-
-@app.route('/admin/portal/update')
-def admin_portal_update():
-   if not session.get('aauth',None):
-    return unauthorized()
-   pass
-
-
-@app.route('/admin/portal/orders')
-def admin_portal_orders():
-   if not session.get('aauth',None):
-    return unauthorized()
-   pass
 
 
 @app.route("/admin/portal/add",methods=['GET','POST'])
@@ -303,6 +289,8 @@ def admin_products():
 
 @app.route('/admin/portal/product/update/<product_name>',methods=['GET','POST'])
 def admin_product_update(product_name):
+  if not session.get('aauth',None):
+    return unauthorized()
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   if 'POST' == request.method:
     cursor.execute('update products set price = \'{price}\', quantity = \'{quantity}\', describ = \'{describ}\' WHERE product_name = \'{product_name}\';'.format(
@@ -329,6 +317,8 @@ def logout(type_of):
 
 @app.route('/profile')
 def profile():
+   if not session.get('uauth',None):
+    return unauthorized()
    user_name_or_email_from_session = session['uauth']
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select user_name,email from users where email=\'{input}\' or user_name=\'{input}\';'.format(input=user_name_or_email_from_session))
@@ -343,6 +333,8 @@ def profile():
 
 @app.route('/profile/all/orders')
 def profile_all_orders():
+   if not session.get('uauth',None):
+    return unauthorized()
    user_name_or_email_from_session = session['uauth']
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select user_name from users where email=\'{input}\' or user_name=\'{input}\';'.format(input=user_name_or_email_from_session))
