@@ -64,8 +64,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Update Product</h1>
-        <form action="/admin/portal/product/update/{{product['product_name'] }}" method="POST" enctype="multipart/form-data">
+        <h1>Update Producto</h1>
+        <form id="admin_update" onsubmit="return update(event)">
             <label for="product_name">Product Name (Unchangeable):</label>
             <input type="text" id="product_name" name="product_name" value="{{ product['product_name'] }}" readonly>
 
@@ -84,5 +84,28 @@
             <button type="submit">Update Product</button>
         </form>
     </div>
+    <script>
+        function update(event) {
+            event.preventDefault(); // Prevent form submission
+    
+            // Get the form data
+            const formData = new FormData(document.getElementById('admin_update'));
+    
+            // Send data to the server
+            fetch('/admin/portal/product/update/{{product['product_name']}}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'Success') {
+                    window.location.href = data.redirect_url; // Redirect on success
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

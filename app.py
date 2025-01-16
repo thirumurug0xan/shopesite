@@ -20,12 +20,6 @@ app.config['MYSQL_USER'] = 'kali'
 app.config['MYSQL_PASSWORD'] = 'kali'
 app.config['MYSQL_DB'] = 'shopesite'
 
-#Remote config
-# app.config['MYSQL_HOST'] = '127.0.0.1'
-# app.config['MYSQL_USER'] = 'kali'
-# app.config['MYSQL_PASSWORD'] = 'kali'
-# app.config['MYSQL_DB'] = 'shopesite'
-
 app.secret_key = 'super_secret'
 mysql = MySQL(app)
 
@@ -135,13 +129,13 @@ def products():
 @app.route('/products/<product_name>')
 def view_product(product_name):
   if '\'' in product_name:
-     return jsonify(error=True,reason='unintentented character found')
+     return jsonify(error=True,reason='Unintended character found')
   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   product_dict = cursor.fetchone()
   link = ' '
   if not product_dict:
-     return jsonify(error=True,reason='misspelled product name')
+     return jsonify(error=True,reason='Misspelled product name')
   if 'http' in product_dict.get('describ'):
     raw_link = product_dict.get('describ')[product_dict.get('describ').find('http'):]
     link = raw_link.split()
@@ -156,16 +150,16 @@ def view_product(product_name):
 @app.route('/product/buy',methods=['POST'])
 def buy_product():
    if '\'' in request.json.get('product_name') or '\'' in request.json.get('address') or not type(int())==type(request.json.get('quantity')):
-     return jsonify(error=True,reason='something went wrong')
+     return jsonify(error=True,reason='Are trying to inject SQL quire')
    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
    cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=request.json.get('product_name')))
    product = cursor.fetchone()
    if not product:
-      return jsonify(status='failed',reason='you are tring to order a product that is not exist in our database',solution='reload the page')
+      return jsonify(status='failed',reason='You are tring to order a product that is not exist in our database',solution='reload the page')
    cursor.execute('select user_name from users where user_name = \'{user_name_or_email}\' or email = \'{user_name_or_email}\''.format(user_name_or_email=session.get('uauth')))
    user_name = cursor.fetchone().get('user_name')
    if not user_name:
-      return jsonify(status='failed',reason='login properly',solution = 'contact our support team')
+      return jsonify(status='failed',reason='Login properly',solution = 'Contact our support team')
    tol_price = int(request.json.get('quantity')) * int(product.get('price'))
    cursor.execute(
       'insert into orders(ordered_product,ordered_user,order_size,tol_prize,address) values(\'{ordered_product}\',\'{ordered_user}\',\'{order_size}\',\'{tol_prize}\',\'{address}\')'.format(
@@ -214,8 +208,8 @@ def admin_portal_add():
      img = request.files['product_image']
      if not all(char.isalpha() or char in '-_.1234567890' for char in img.filename) or 'image' != img.content_type[:5] :
         return jsonify({'status':'failled',
-                        'reason':'file name should be alphaphet and numeric and following only characters are allowed(-_.)',
-                        'reason2':'are you sure to upload a image ?'})
+                        'reason':'File name should be alphaphet and numeric and following only characters are allowed(-_.)',
+                        'reason2':'Are you sure to upload a image ?'})
      product_tuple = (
      request.form.get('product_name'),
      request.form.get('price'),
@@ -226,7 +220,7 @@ def admin_portal_add():
      cursor.execute('select product_name, image_name from products where product_name = \'{product_name}\' or image_name = \'{image_name}\''.format(product_name = product_tuple[0], image_name = product_tuple[4]))
      verify_product = cursor.fetchone()
      if verify_product:
-        return jsonify({'status':'failed','reason':'product name or image name already exist'})
+        return jsonify({'status':'failed','reason':'Product name or image name already exist'})
      insert_product_quire = 'insert into products(product_name, price, quantity, describ, image_name) VALUES (\'{product_name}\',\'{price}\',\'{quantity}\',\'{desc}\',\'{img_name}\');'.format(
         product_name=product_tuple[0],
         price=product_tuple[1],
@@ -302,8 +296,9 @@ def admin_product_update(product_name):
     product_name=product_name)
     )
     cursor.connection.commit()
-    return jsonify({'status':'success',
-      'commit':'success'
+    return jsonify({'status':'Success',
+      'commit':'Success',
+      'redirect_url': '/admin/portal/products'
     })
   cursor.execute('select * from products where product_name = \'{product_name}\''.format(product_name=product_name))
   edit_product_tuple = cursor.fetchone()
