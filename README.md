@@ -20,9 +20,9 @@ Shopesite is a dynamic, user-friendly e-commerce platform designed for modern bu
   - Rich experience
 
 ## Specification   
-- Python 3.12.8
 - Frontend: HTML, CSS, JavaScript
-- Backend: Python Flask
+- Backend: Python3
+- Frame work: Python Flask
 - Database: MySQL
 
 ## Installation  
