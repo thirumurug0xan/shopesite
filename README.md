@@ -32,7 +32,7 @@ Shopesite is a dynamic, user-friendly e-commerce platform designed for modern bu
    cd shopesite
    python3 -m venv .venv
    source .venv/bin/activate
-   pip install flask,flask_mysqldb,MySQLdb
+   pip install flask flask_mysqldb
    ```
 2. Database connection:
    ```python
