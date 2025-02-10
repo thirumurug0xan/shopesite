@@ -8,7 +8,7 @@ from flask import (Flask,
                    session)
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import os 
+import os
 
 github_profile='thirumurug0xan'
 
