@@ -1,3 +1,9 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS shopesite;
+
+-- Use database
+USE shopesite;
+
 -- Create 'users' table
 CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR(50),

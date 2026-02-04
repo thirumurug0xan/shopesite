@@ -42,9 +42,10 @@ Shopesite is a dynamic, user-friendly e-commerce platform designed for modern bu
    app.config['MYSQL_PASSWORD'] = 'DBUSER_PASSWORD'#Example:'kali'
    app.config['MYSQL_DB'] = 'YOUR_DB_NAME' #Example:'shopesite'(recommended)
    ```
-3. Make you sure mysql server is up in running
+3. Make you sure mysql server is up in running and load the tables
    ```bash
    service mysql status
+   mysql -u kali -p < loadtables.sql
    ```
 4. It is important to mention change the following in app.py for more security
    ```python
